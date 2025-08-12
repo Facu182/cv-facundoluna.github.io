@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Facundo Luna - Arquitecto en Formación</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #2c3e50;
+      --secondary: #2980b9;
+      --light: #ecf0f1;
+      --dark: #34495e;
+      --accent: #27ae60;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background-color: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      background: white;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+    header {
+      text-align: center;
+      padding: 30px 0;
+      background: linear-gradient(135deg, var(--primary), var(--dark));
+      color: white;
+      position: relative;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    h2 {
+      font-size: 1.5rem;
+      color: var(--secondary);
+      margin-bottom: 20px;
+      position: relative;
+      display: inline-block;
+    }
+    h2::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 50px;
+      height: 2px;
+      background: var(--secondary);
+    }
+    h3 {
+      font-size: 1.3rem;
+      color: var(--primary);
+      margin: 15px 0 10px;
+    }
+    .photo {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin: 20px auto;
+      overflow: hidden;
+      border: 3px solid var(--secondary);
+    }
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 15px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      color: white;
+    }
+    .contact-item i {
+      margin-right: 8px;
+      color: var(--accent);
+    }
+    /* Botón portafolio */
+    .btn-portfolio {
+      display: inline-block;
+      margin-left: 10px;
+      padding: 8px 16px;
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .btn-portfolio:hover {
+      background-color: #1e8449;
+    }
+    section {
+      padding: 25px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+    .profile {
+      text-align: center;
+      font-style: italic;
+      color: var(--dark);
+      padding: 15px 0;
+    }
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 5px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--accent);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+    }
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -30px;
+      top: 5px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--secondary);
+      border: 2px solid white;
+    }
+    .timeline-date {
+      font-weight: bold;
+      color: var(--primary);
+    }
+    /* Habilidades Técnicas en 2x2 */
+    .skills-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+    .skill-category {
+      background: white;
+      padding: 10px;
+    }
+    .skill-item {
+      margin-bottom: 15px;
+    }
+    .skill-name {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+    .skill-bar {
+      height: 8px;
+      background: #ddd;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .skill-progress {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 4px;
+    }
+    .tech-lang-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      align-items: start;
+    }
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .project-card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      padding: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+    .project-title {
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+    }
+    .project-year {
+      color: var(--secondary);
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+    .project-details {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+    .project-details li {
+      position: relative;
+      padding-left: 15px;
+      margin-bottom: 8px;
+      color: #333;
+    }
+    .project-details li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: bold;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: var(--dark);
+      font-style: italic;
+      border-top: 1px solid #eee;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Facundo Luna</h1>
+      <h2>Arquitecto en Formación | Visualización 3D & Desarrollo de Proyectos</h2>
+      <div class="photo">
+        <!-- Cambia la ruta de la imagen por la tuya -->
+        <img src="https://i.postimg.cc/LsLVGmQ2/20250811-005222.jpg" alt="">
+      </div>
+      <div class="contact-info">
+        <div class="contact-item"><i class="fas fa-map-marker-alt"></i>Buenos Aires, Argentina</div>
+        <div class="contact-item"><i class="fas fa-phone"></i>+54 11 2337-3832</div>
+        <div class="contact-item"><i class="fas fa-envelope"></i>facundoluna182@gmail.com</div>
+        <!-- Botón portafolio -->
+        <!-- Sustituye TU_LINK_DEL_PORTAFOLIO_AQUI con tu enlace real -->
+        <div class="contact-item">
+          <a href="https://www.behance.net/facundoluna7" target="_blank" rel="noopener noreferrer" class="btn-portfolio">
+            Ver Portafolio
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <div class="profile">
+        Estudiante de Arquitectura en la Universidad de Buenos Aires (UBA) con experiencia en desarrollo de planos técnicos y modelado 3D. Especial interés en la integración de tecnologías digitales (BIM, visualización arquitectónica e IA) para la creación de proyectos innovadores.
+      </div>
+    </section>
+
+    <section>
+      <h2>Formación Académica</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">2022 - Presente</div>
+          <h3>Arquitectura</h3>
+          <p>Universidad de Buenos Aires (UBA)</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2015 - 2021</div>
+          <h3>Bachiller en Ciencias Sociales y Humanidades</h3>
+          <p>Instituto Evangélico de la Asamblea Cristiana (I.E.A.C)</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Experiencia Profesional</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">Julio 2023 - Diciembre 2023</div>
+          <h3>Asistente de Arquitectura</h3>
+          <ul>
+            <li>Elaboración de planimetrías técnicas</li>
+            <li>Desarrollo de documentación ejecutiva</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">Enero 2024 - Abril 2024</div>
+          <h3>Community Manager Creativo</h3>
+          <ul>
+            <li>Producción de contenido visual</li>
+            <li>Gestión de redes sociales</li>
+            <li>Estrategias digitales</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Habilidades Técnicas</h2>
+      <div class="skills-container">
+        <div class="skill-category">
+          <h3>Herramientas CAD y 2D</h3>
+          <div class="skill-item"><div class="skill-name"><span>AutoCAD</span><span>Avanzado</span></div><div class="skill-bar"><div class="skill-progress" style="width:100%"></div></div></div>
+          <div class="skill-item"><div class="skill-name"><span>Corel Draw</span><span>Intermedio</span></div><div class="skill-bar"><div class="skill-progress" style="width:70%"></div></div></div>
+        </div>
+        <div class="skill-category">
+          <h3>Renderizado</h3>
+          <div class="skill-item"><div class="skill-name"><span>Twinmotion</span><span>Avanzado</span></div><div class="skill-bar"><div class="skill-progress" style="width:100%"></div></div></div>
+        </div>
+        <div class="skill-category">
+          <h3>Modelado 3D</h3>
+          <div class="skill-item"><div class="skill-name"><span>SketchUp</span><span>Avanzado</span></div><div class="skill-bar"><div class="skill-progress" style="width:90%"></div></div></div>
+          <div class="skill-item"><div class="skill-name"><span>Rhino</span><span>Intermedio</span></div><div class="skill-bar"><div class="skill-progress" style="width:70%"></div></div></div>
+          <div class="skill-item"><div class="skill-name"><span>Revit</span><span>Intermedio</span></div><div class="skill-bar"><div class="skill-progress" style="width:65%"></div></div></div>
+          <div class="skill-item"><div class="skill-name"><span>Archicad</span><span>Intermedio</span></div><div class="skill-bar"><div class="skill-progress" style="width:65%"></div></div></div>
+        </div>
+        <div class="skill-category">
+          <h3>Edición Multimedia</h3>
+          <div class="skill-item"><div class="skill-name"><span>Adobe Photoshop</span><span>Avanzado</span></div><div class="skill-bar"><div class="skill-progress" style="width:80%"></div></div></div>
+          <div class="skill-item"><div class="skill-name"><span>Adobe Premiere</span><span>Intermedio</span></div><div class="skill-bar"><div class="skill-progress" style="width:65%"></div></div></div>
+          <div class="skill-item"><div class="skill-name"><span>Canva</span><span>Avanzado</span></div><div class="skill-bar"><div class="skill-progress" style="width:100%"></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="tech-lang-container">
+        <div>
+          <h2>Tecnologías Innovadoras</h2>
+          <ul>
+            <li>Visualización 360° y recorridos virtuales</li>
+            <li>Implementación de IA generativa en diseño</li>
+            <li>Optimización de procesos con IA</li>
+          </ul>
+        </div>
+        <div>
+          <h2>Idiomas</h2>
+          <div class="skill-item"><div class="skill-name"><span>Español</span><span>Nativo</span></div></div>
+          <div class="skill-item"><div class="skill-name"><span>Inglés</span><span>Técnico (lectura/escritura avanzada)</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Proyectos Destacados</h2>
+      <div class="projects">
+        <a href="https://www.behance.net/gallery/232345049/VIVIENDA-UNIFAMILIA-Proyecto-Acadmico-%282024%29" class="project-card" target="_blank" rel="noopener noreferrer">
+          <div class="project-title">Vivienda Unifamiliar</div>
+          <div class="project-year">Proyecto Académico (2024)</div>
+          <ul class="project-details">
+            <li>Diseño completo + documentación técnica</li>
+            <li>Modelado 3D y renderizado fotorrealista</li>
+            <li>Visualización interactiva 360°</li>
+          </ul>
+        </a>
+        <a href="https://www.behance.net/gallery/232343769/IGLESIA-Proyecto-Acadmico-%282024%29" class="project-card" target="_blank" rel="noopener noreferrer">
+          <div class="project-title">Iglesia</div>
+          <div class="project-year">Proyecto Académico (2024)</div>
+          <ul class="project-details">
+            <li>Diseño completo</li>
+            <li>Modelado 3D y renderizado fotorrealista</li>
+            <li>Visualización Multimedia</li>
+          </ul>
+        </a>
+        <a href="https://www.behance.net/gallery/232344061/INTERVENCION-URBANA-Proyecto-Acadmico-%282025%29" class="project-card" target="_blank" rel="noopener noreferrer">
+          <div class="project-title">Planos Municipales</div>
+          <div class="project-year">Profesional (2024)</div>
+          <ul class="project-details">
+            <li>Planimetrías técnicas</li>
+            <li>Documentación normativa</li>
+            <li>Coordinación interdisciplinaria</li>
+          </ul>
+        </a>
+        <!-- Nuevo Proyecto: Intervención Urbana -->
+        <a href="https://www.behance.net/gallery/232344061/INTERVENCION-URBANA-Proyecto-Acadmico-%282025%29" class="project-card" target="_blank" rel="noopener noreferrer">
+          <div class="project-title">Intervención Urbana</div>
+          <div class="project-year">Proyecto Académico (2025)</div>
+          <ul class="project-details">
+            <li>Diseño urbano y paisajístico</li>
+            <li>Integración de espacios públicos</li>
+            <li>Soluciones de movilidad</li>
+          </ul>
+        </a>
+        <a href="https://www.behance.net/gallery/232344485/CONJUNTO-HABITACIONAL-Proyecto-Acadmico-%282025%29" class="project-card" target="_blank" rel="noopener noreferrer">
+          <div class="project-title">Conjunto Habitacional</div>
+          <div class="project-year">Proyecto Académico (2025)</div>
+          <ul class="project-details">
+            <li>Desarrollo urbano sostenible</li>
+            <li>Análisis de entorno</li>
+            <li>Propuesta espacial integrada</li>
+          </ul>
+        </a>
+        <a href="TU_LINK_AQUI_5" class="project-card" target="_blank" rel="noopener noreferrer">
+          <div class="project-title">Biblioteca Costera</div>
+          <div class="project-year">Proyecto Académico (2025)</div>
+          <ul class="project-details">
+            <li>Concepto arquitectónico integrado</li>
+            <li>Estudios de prefactibilidad</li>
+            <li>Solución paisajística</li
+
