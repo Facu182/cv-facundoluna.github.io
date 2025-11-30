@@ -50,7 +50,7 @@
             width: 150px;
             height: 150px;
             margin: 0 auto 25px auto;
-            border-radius: 50%;
+            border-radius: 8px;
             overflow: hidden;
             border: 3px solid var(--accent);
             box-shadow: 0 0 20px rgba(0, 173, 181, 0.3);
@@ -82,8 +82,18 @@
         .contact-list { list-style: none; margin-bottom: 30px; }
         .contact-list li { margin-bottom: 12px; display: flex; align-items: center; font-size: 0.85rem; }
         .contact-list i { width: 25px; color: var(--accent); margin-right: 5px;}
-        .contact-list a { color: var(--text-sidebar); text-decoration: none; transition: 0.3s; }
-        .contact-list a:hover { color: var(--accent); }
+        
+        /* Estilo para los enlaces de contacto */
+        .contact-list a {
+            color: var(--text-sidebar);
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        .contact-list a:hover {
+            color: var(--accent);
+        }
 
         .portfolio-btn {
             display: block;
@@ -255,8 +265,16 @@
             <h3>Contacto</h3>
             <ul class="contact-list">
                 <li><i class="fas fa-map-marker-alt"></i> Buenos Aires, Argentina</li>
-                <li><i class="fas fa-phone"></i> +54 11 2337-3832</li>
-                <li><i class="fas fa-envelope"></i> facundoluna182@gmail.com</li>
+                <li>
+                    <a href="https://wa.me/541123373832" target="_blank">
+                        <i class="fab fa-whatsapp"></i> +54 11 2337-3832
+                    </a>
+                </li>
+                <li>
+                    <a href="mailto:facundoluna182@gmail.com">
+                        <i class="fas fa-envelope"></i> facundoluna182@gmail.com
+                    </a>
+                </li>
                 <li>
                     <a href="https://www.behance.net/facundoluna7" target="_blank" class="portfolio-btn">
                         VER PORTAFOLIO
@@ -274,22 +292,22 @@
             <h3>Habilidades Técnicas</h3>
             
             <div class="skill-category-title">CAD & 2D</div>
-            <div class="skill-group"><div class="skill-label"><span>AutoCAD</span> <span>100%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:100%"></div></div></div>
-            <div class="skill-group"><div class="skill-label"><span>Corel Draw</span> <span>70%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:70%"></div></div></div>
+            <div class="skill-group"><div class="skill-label"><span>AutoCAD</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:100%"></div></div></div>
+            <div class="skill-group"><div class="skill-label"><span>Corel Draw</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:70%"></div></div></div>
 
             <div class="skill-category-title">Modelado 3D & BIM</div>
-            <div class="skill-group"><div class="skill-label"><span>SketchUp</span> <span>90%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:90%"></div></div></div>
-            <div class="skill-group"><div class="skill-label"><span>Rhino</span> <span>70%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:70%"></div></div></div>
-            <div class="skill-group"><div class="skill-label"><span>Revit</span> <span>65%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:65%"></div></div></div>
-            <div class="skill-group"><div class="skill-label"><span>Archicad</span> <span>65%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:65%"></div></div></div>
+            <div class="skill-group"><div class="skill-label"><span>SketchUp</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:90%"></div></div></div>
+            <div class="skill-group"><div class="skill-label"><span>Rhino</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:70%"></div></div></div>
+            <div class="skill-group"><div class="skill-label"><span>Revit</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:65%"></div></div></div>
+            <div class="skill-group"><div class="skill-label"><span>Archicad</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:65%"></div></div></div>
 
             <div class="skill-category-title">Renderizado</div>
-            <div class="skill-group"><div class="skill-label"><span>Twinmotion</span> <span>100%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:100%"></div></div></div>
+            <div class="skill-group"><div class="skill-label"><span>Twinmotion</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:100%"></div></div></div>
 
             <div class="skill-category-title">Edición Multimedia</div>
-            <div class="skill-group"><div class="skill-label"><span>Photoshop</span> <span>80%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:80%"></div></div></div>
-            <div class="skill-group"><div class="skill-label"><span>Premiere</span> <span>65%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:65%"></div></div></div>
-            <div class="skill-group"><div class="skill-label"><span>Canva</span> <span>100%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:100%"></div></div></div>
+            <div class="skill-group"><div class="skill-label"><span>Photoshop</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:100%"></div></div></div>
+            <div class="skill-group"><div class="skill-label"><span>Premiere</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:65%"></div></div></div>
+            <div class="skill-group"><div class="skill-label"><span>Canva</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:100%"></div></div></div>
             
             <h3>Idiomas</h3>
             <div class="skill-group">
@@ -303,7 +321,7 @@
         <main>
             <header class="header-main">
                 <h1>Facundo<br>Luna</h1>
-                <p class="subtitle">Arquitecto en Formación | Visualización 3D & Desarrollo de Proyectos</p>
+                <p class="subtitle">Arquitecto en Formación | Visualización 3D & Desarrollo de Proyectos con Integración de IA</p>
             </header>
 
             <section>
@@ -451,4 +469,3 @@
 
 </body>
 </html>
-
