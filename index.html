@@ -19,6 +19,10 @@
             --border: #e0e0e0;
         }
 
+        html {
+            scroll-behavior: smooth; /* Desplazamiento suave al hacer click en anclas */
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
@@ -28,25 +32,33 @@
             line-height: 1.6;
             font-size: 14px;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden; /* Evita scroll horizontal indeseado */
         }
 
-        /* --- CONTENEDOR PRINCIPAL (PANTALLAS GRANDES/PC) --- */
+        /* --- CONTENEDOR PRINCIPAL --- */
         .cv-container {
             max-width: 1250px;
             margin: 40px auto;
             background: white;
             box-shadow: 0 20px 50px rgba(0,0,0,0.15);
             display: grid;
-            /* Diseño base de 2 columnas */
             grid-template-columns: 300px 1fr;
             min-height: 100vh;
+            opacity: 0; /* Para animación de carga inicial */
+            animation: fadeInPage 1s ease-out forwards;
         }
 
-        /* --- SIDEBAR (BARRA LATERAL) --- */
+        @keyframes fadeInPage {
+            to { opacity: 1; }
+        }
+
+        /* --- SIDEBAR --- */
         aside {
             background-color: var(--bg-sidebar);
             color: var(--text-sidebar);
             padding: 40px 25px;
+            position: relative;
+            z-index: 10;
         }
 
         .photo-container {
@@ -57,6 +69,11 @@
             overflow: hidden;
             border: 3px solid var(--accent);
             box-shadow: 0 0 20px rgba(0, 173, 181, 0.3);
+            transition: transform 0.5s ease;
+        }
+        
+        .photo-container:hover {
+            transform: scale(1.05);
         }
 
         .photo-container img { width: 100%; height: 100%; object-fit: cover; }
@@ -82,10 +99,10 @@
             letter-spacing: 1px;
         }
 
-        /* Contacto y Redes */
+        /* Contacto */
         .contact-list { list-style: none; margin-bottom: 30px; }
         .contact-list li { margin-bottom: 12px; display: flex; align-items: center; font-size: 0.85rem; }
-        .contact-list i { width: 25px; color: var(--accent); margin-right: 5px;}
+        .contact-list i { width: 25px; color: var(--accent); margin-right: 5px; transition: transform 0.3s;}
         
         .contact-list a {
             color: var(--text-sidebar);
@@ -95,6 +112,7 @@
             align-items: center;
         }
         .contact-list a:hover { color: var(--accent); }
+        .contact-list a:hover i { transform: scale(1.2); }
 
         .portfolio-btn {
             display: block;
@@ -107,23 +125,55 @@
             text-decoration: none;
             font-weight: 600;
             margin-top: 20px;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
-        .portfolio-btn:hover { background: var(--accent); color: white; }
+        
+        .portfolio-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 0%; height: 100%;
+            background: var(--accent);
+            z-index: -1;
+            transition: width 0.3s ease;
+        }
 
-        /* Barras de Skills Visuales */
+        .portfolio-btn:hover { color: white; box-shadow: 0 5px 15px rgba(0, 173, 181, 0.4); }
+        .portfolio-btn:hover::before { width: 100%; }
+
+        /* Skills Visuales */
         .skill-group { margin-bottom: 10px; }
         .skill-label { display: flex; justify-content: space-between; margin-bottom: 3px; font-size: 0.8rem; }
         .skill-bar-bg { background: rgba(255,255,255,0.1); height: 4px; border-radius: 2px; overflow: hidden; }
-        .skill-bar-fill { height: 100%; background: var(--accent); }
+        
+        .skill-bar-fill { 
+            height: 100%; 
+            background: var(--accent); 
+            width: 0; /* Inicialmente 0 para la animación JS */
+            transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
 
-        /* Listas de tecnologías */
         .tech-list { font-size: 0.85rem; color: #ccc; list-style: none; padding: 0;}
         .tech-list li { margin-bottom: 5px; display: flex; align-items: start; }
         .tech-list li::before { content: '▸'; color: var(--accent); margin-right: 8px; }
 
-        /* --- MAIN CONTENT (CONTENIDO PRINCIPAL) --- */
+        /* --- MAIN CONTENT --- */
         main { padding: 50px; background-color: white; }
+
+        /* Clase de animación scroll */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+        
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         .header-main { margin-bottom: 40px; border-bottom: 1px solid #eee; padding-bottom: 30px;}
         h1 {
@@ -152,19 +202,24 @@
 
         .profile-text { color: #555; margin-bottom: 20px; font-size: 1.05rem; max-width: 800px; text-align: justify; }
 
-        /* Timeline (Línea de tiempo) */
+        /* Timeline */
         .timeline-box {
             position: relative;
             padding-left: 25px;
             margin-bottom: 30px;
             border-left: 2px solid #eee;
-            /* Evita que se corte a la mitad al imprimir */
             page-break-inside: avoid; 
+            transition: border-left-color 0.3s;
         }
+        .timeline-box:hover { border-left-color: var(--accent); }
+
         .timeline-box::before {
             content: ''; position: absolute; left: -6px; top: 0;
             width: 10px; height: 10px; background: var(--accent); border-radius: 50%;
+            transition: transform 0.3s;
         }
+        .timeline-box:hover::before { transform: scale(1.3); }
+
         .timeline-year { font-size: 0.8rem; color: #999; font-weight: 700; margin-bottom: 4px; display: block; }
         .timeline-title { font-size: 1.15rem; font-weight: 700; color: #333; margin-bottom: 2px;}
         .timeline-subtitle { font-size: 0.95rem; color: var(--accent); font-weight: 500; margin-bottom: 8px; }
@@ -177,10 +232,9 @@
             content: "•"; position: absolute; left: 0; color: var(--accent); font-weight: bold;
         }
 
-        /* --- GALERÍA DE PROYECTOS --- */
+        /* --- GALERÍA PROYECTOS --- */
         .projects-grid {
             display: grid;
-            /* Grid adaptable automáticamente según el ancho */
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
         }
@@ -194,16 +248,15 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             text-decoration: none;
             color: inherit;
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efecto rebote sutil */
             border: 1px solid #eee;
             height: 100%;
-            /* Importante para PDF: evita que una tarjeta se divida en dos páginas */
             page-break-inside: avoid;
         }
 
         .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
             border-color: var(--accent);
         }
 
@@ -219,58 +272,40 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s ease;
+            transition: transform 0.8s ease, filter 0.5s ease;
         }
 
-        .project-card:hover .project-image-container img { transform: scale(1.1); }
+        .project-card:hover .project-image-container img { 
+            transform: scale(1.1); 
+            filter: brightness(1.05) saturate(1.1);
+        }
 
         .project-info { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-
         .p-title { font-weight: 800; font-size: 1.1rem; margin-bottom: 5px; color: #222; }
         .p-year { font-size: 0.75rem; color: var(--accent); font-weight: 700; text-transform: uppercase; margin-bottom: 12px; display: block;}
         
-        .p-desc {
-            list-style: none;
-            padding: 0;
-            margin-top: auto;
-        }
+        .p-desc { list-style: none; padding: 0; margin-top: auto; }
         .p-desc li {
-            font-size: 0.85rem;
-            color: #666;
-            margin-bottom: 6px;
-            padding-left: 12px;
-            position: relative;
-            line-height: 1.4;
+            font-size: 0.85rem; color: #666; margin-bottom: 6px; padding-left: 12px; position: relative; line-height: 1.4;
         }
         .p-desc li::before {
             content: "›"; position: absolute; left: 0; color: var(--accent); font-weight: bold; font-size: 1.1em; line-height: 1;
         }
 
-        /* =========================================
-           MEDIA QUERIES (ADAPTABILIDAD PANTALLAS)
-        ========================================= */
-        
-        /* Tablets y Pantallas Medianas (aprox. 900px o menos) */
+        /* MEDIA QUERIES */
         @media (max-width: 900px) {
             .cv-container {
-                grid-template-columns: 1fr; /* Cambia a una sola columna */
-                margin: 20px; /* Reduce márgenes externos */
+                grid-template-columns: 1fr;
+                margin: 20px;
                 width: auto;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             }
-            aside {
-                text-align: center;
-                padding: 30px 20px;
-            }
-            /* Centrar listas en la vista móvil de la barra lateral */
+            aside { text-align: center; padding: 30px 20px; }
             .contact-list li, .tech-list li, .skill-label { justify-content: center; }
             .contact-list a { justify-content: center; }
-            
             main { padding: 30px 25px; }
             h1 { font-size: 3rem; }
         }
 
-        /* Móviles Pequeños (Teléfonos) */
         @media (max-width: 480px) {
             .cv-container { margin: 0; box-shadow: none; }
             h1 { font-size: 2.5rem; letter-spacing: -1px; }
@@ -280,93 +315,26 @@
             .project-image-container { height: 160px; }
         }
 
-        /* =========================================
-           ESTILOS PARA IMPRESIÓN Y PDF
-        ========================================= */
+        /* IMPRESIÓN (Limpia, sin animaciones) */
         @media print {
-            /* Reseteo de colores para ahorrar tinta y asegurar legibilidad */
-            body {
-                background-color: white;
-                color: black;
-            }
-
-            /* Eliminar sombras, márgenes y bordes del contenedor principal */
-            .cv-container {
-                box-shadow: none;
-                margin: 0;
-                max-width: 100%;
-                display: block; /* Fuerza diseño lineal (una columna) */
-                border: none;
-            }
-
-            /* --- Adaptar Sidebar para impresión --- */
-            aside {
-                background-color: white; /* Fondo blanco en vez de oscuro */
-                color: black; /* Texto negro */
-                padding: 0;
-                border-bottom: 2px solid #333;
-                margin-bottom: 20px;
-                text-align: left; /* Alinear a la izquierda para leer mejor en papel */
-            }
-
-            /* Forzar color negro en títulos y textos de la barra lateral */
-            aside h3, .skill-category-title, .tech-list, .contact-list a, .skill-label {
-                color: black !important;
-                border-color: #ccc;
-                justify-content: flex-start; /* Alinear elementos a la izquierda */
-            }
-
-            .tech-list li::before { color: #333; } /* Viñetas oscuras */
-
-            /* Adaptar barras de habilidad para impresión (escala de grises/alto contraste) */
-            .skill-bar-bg { 
-                background: #eee !important; 
-                -webkit-print-color-adjust: exact; /* Fuerza la impresión de colores de fondo */
-                print-color-adjust: exact;
-            }
-            .skill-bar-fill { 
-                background: #555 !important; /* Gris oscuro para la barra llena */
-                -webkit-print-color-adjust: exact; 
-                print-color-adjust: exact;
-            }
-
-            /* Ocultar el botón de portafolio (no sirve en papel) */
+            body { background-color: white; color: black; }
+            .cv-container { box-shadow: none; margin: 0; display: block; border: none; animation: none; opacity: 1; }
+            aside { background-color: white; color: black; border-bottom: 2px solid #333; padding: 0; margin-bottom: 20px; text-align: left; }
+            aside h3, .skill-category-title, .tech-list, .contact-list a, .skill-label { color: black !important; justify-content: flex-start; }
+            .tech-list li::before { color: #333; }
+            .skill-bar-bg { background: #eee !important; -webkit-print-color-adjust: exact; }
+            .skill-bar-fill { background: #555 !important; -webkit-print-color-adjust: exact; width: auto !important; }
             .portfolio-btn { display: none; }
-
-            /* --- Adaptar Main Content para impresión --- */
             main { padding: 0; }
             .header-main { border-bottom: 2px solid #333; }
             h1 { color: black; margin-top: 0; }
-            .subtitle { color: #555; }
-
-            /* Asegurar que los colores de acento se impriman oscuros */
             .timeline-box { border-left-color: #333; }
-            .timeline-box::before, .timeline-details li::before { 
-                background-color: #333; color: #333; 
-                -webkit-print-color-adjust: exact; 
-                print-color-adjust: exact;
-            }
-            .p-year, .p-desc li::before { color: #555 !important; }
-
-            /* --- Adaptar Grid de Proyectos para impresión --- */
-            .projects-grid {
-                display: block; /* Muestra los proyectos uno debajo del otro */
-            }
-            .project-card {
-                box-shadow: none;
-                border: 1px solid #ccc;
-                margin-bottom: 20px;
-                /* Evita que una tarjeta se corte entre dos hojas al imprimir */
-                page-break-inside: avoid; 
-            }
-            .project-image-container {
-                height: auto; /* Permite que la imagen tenga su altura natural */
-                max-height: 250px;
-            }
-            .project-image-container img {
-                position: static; /* Resetea la posición para impresión */
-                height: auto;
-            }
+            .timeline-box::before, .timeline-details li::before { background-color: #333; color: #333; -webkit-print-color-adjust: exact; }
+            .projects-grid { display: block; }
+            .project-card { box-shadow: none; border: 1px solid #ccc; margin-bottom: 20px; page-break-inside: avoid; transform: none !important; }
+            .project-image-container { height: auto; max-height: 250px; }
+            .project-image-container img { position: static; height: auto; transform: none !important; }
+            .fade-in-up { opacity: 1 !important; transform: none !important; }
         }
     </style>
 </head>
@@ -375,7 +343,7 @@
     <div class="cv-container">
         <aside>
             <div class="photo-container">
-                <img src="https://i.postimg.cc/LsLVGmQ2/20250811-005222.jpg" alt="Facundo Luna">
+                <img src="https://i.postimg.cc/LsLVGmQ2/20250811-005222.jpg" alt="Facundo Luna" loading="lazy">
             </div>
 
             <h3>Contacto</h3>
@@ -398,55 +366,59 @@
                 </li>
             </ul>
 
-            <h3>Tecnologías Innovadoras</h3>
-            <ul class="tech-list">
-                <li>Visualización 360° y recorridos virtuales</li>
-                <li>Implementación de IA generativa en diseño</li>
-                <li>Optimización de procesos con IA</li>
-            </ul>
+            <div class="fade-in-up">
+                <h3>Tecnologías Innovadoras</h3>
+                <ul class="tech-list">
+                    <li>Visualización 360° y recorridos virtuales</li>
+                    <li>Implementación de IA generativa en diseño</li>
+                    <li>Optimización de procesos con IA</li>
+                </ul>
+            </div>
 
             <h3>Habilidades Técnicas</h3>
             
             <div class="skill-category-title">CAD & 2D</div>
-            <div class="skill-group"><div class="skill-label"><span>AutoCAD</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:100%"></div></div></div>
-            <div class="skill-group"><div class="skill-label"><span>Corel Draw</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:70%"></div></div></div>
+            <div class="skill-group"><div class="skill-label"><span>AutoCAD</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="100%"></div></div></div>
+            <div class="skill-group"><div class="skill-label"><span>Corel Draw</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="70%"></div></div></div>
 
             <div class="skill-category-title">Modelado 3D & BIM</div>
-            <div class="skill-group"><div class="skill-label"><span>SketchUp</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:90%"></div></div></div>
-            <div class="skill-group"><div class="skill-label"><span>Rhino</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:70%"></div></div></div>
-            <div class="skill-group"><div class="skill-label"><span>Revit</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:65%"></div></div></div>
-            <div class="skill-group"><div class="skill-label"><span>Archicad</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:65%"></div></div></div>
+            <div class="skill-group"><div class="skill-label"><span>SketchUp</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="90%"></div></div></div>
+            <div class="skill-group"><div class="skill-label"><span>Rhino</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="70%"></div></div></div>
+            <div class="skill-group"><div class="skill-label"><span>Revit</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="65%"></div></div></div>
+            <div class="skill-group"><div class="skill-label"><span>Archicad</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="65%"></div></div></div>
 
             <div class="skill-category-title">Renderizado</div>
-            <div class="skill-group"><div class="skill-label"><span>Twinmotion</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:100%"></div></div></div>
+            <div class="skill-group"><div class="skill-label"><span>Twinmotion</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="100%"></div></div></div>
 
             <div class="skill-category-title">Edición Multimedia</div>
-            <div class="skill-group"><div class="skill-label"><span>Photoshop</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:100%"></div></div></div>
-            <div class="skill-group"><div class="skill-label"><span>Premiere</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:65%"></div></div></div>
-            <div class="skill-group"><div class="skill-label"><span>Canva</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:100%"></div></div></div>
+            <div class="skill-group"><div class="skill-label"><span>Photoshop</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="100%"></div></div></div>
+            <div class="skill-group"><div class="skill-label"><span>Premiere</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="65%"></div></div></div>
+            <div class="skill-group"><div class="skill-label"><span>Canva</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="100%"></div></div></div>
             
-            <h3>Idiomas</h3>
-            <div class="skill-group">
-                <div class="skill-label"><span>Español</span> <span>Nativo</span></div>
-            </div>
-            <div class="skill-group">
-                <div class="skill-label"><span>Inglés</span> <span>Técnico (Lectura/Escritura)</span></div>
+            <div class="fade-in-up">
+                <h3>Idiomas</h3>
+                <div class="skill-group">
+                    <div class="skill-label"><span>Español</span> <span>Nativo</span></div>
+                </div>
+                <div class="skill-group">
+                    <div class="skill-label"><span>Inglés</span> <span>Técnico (Lectura/Escritura)</span></div>
+                </div>
             </div>
         </aside>
 
         <main>
-            <header class="header-main">
+            <header class="header-main fade-in-up">
                 <h1>Facundo<br>Luna</h1>
                 <p class="subtitle">Arquitecto en Formación | Visualización 3D & Desarrollo de Proyectos con Integración de IA</p>
             </header>
 
-            <section>
+            <section class="fade-in-up">
                 <p class="profile-text">
                     Estudiante de Arquitectura en la Universidad de Buenos Aires (UBA) con experiencia en desarrollo de planos técnicos y modelado 3D. Especial interés en la integración de tecnologías digitales (BIM, visualización arquitectónica e IA) para la creación de proyectos innovadores.
                 </p>
             </section>
 
-            <section>
+            <section class="fade-in-up">
                 <h2 class="section-title">Experiencia Profesional</h2>
                 
                 <div class="timeline-box">
@@ -469,7 +441,7 @@
                 </div>
             </section>
 
-            <section>
+            <section class="fade-in-up">
                 <h2 class="section-title">Formación Académica</h2>
                 <div class="timeline-box">
                     <span class="timeline-year">2022 - Presente</span>
@@ -484,12 +456,12 @@
             </section>
 
             <section>
-                <h2 class="section-title">Proyectos Destacados</h2>
+                <h2 class="section-title fade-in-up">Proyectos Destacados</h2>
                 <div class="projects-grid">
                     
-                    <a href="https://www.behance.net/gallery/232345049/VIVIENDA-UNIFAMILIA-Proyecto-Acadmico-%282024%29" target="_blank" class="project-card">
+                    <a href="https://www.behance.net/gallery/232345049/VIVIENDA-UNIFAMILIA-Proyecto-Acadmico-%282024%29" target="_blank" class="project-card fade-in-up">
                         <div class="project-image-container">
-                            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/0f577a232345049.689aaf95bb01d.png" alt="Vivienda Unifamiliar">
+                            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/0f577a232345049.689aaf95bb01d.png" alt="Vivienda Unifamiliar" loading="lazy">
                         </div>
                         <div class="project-info">
                             <div class="p-title">Vivienda Unifamiliar</div>
@@ -502,9 +474,9 @@
                         </div>
                     </a>
 
-                    <a href="https://www.behance.net/gallery/232343769/IGLESIA-Proyecto-Acadmico-%282024%29" target="_blank" class="project-card">
+                    <a href="https://www.behance.net/gallery/232343769/IGLESIA-Proyecto-Acadmico-%282024%29" target="_blank" class="project-card fade-in-up">
                         <div class="project-image-container">
-                            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/bec6d3232343769.689aa47f6ed6d.jpg" alt="Iglesia">
+                            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/bec6d3232343769.689aa47f6ed6d.jpg" alt="Iglesia" loading="lazy">
                         </div>
                         <div class="project-info">
                             <div class="p-title">Iglesia</div>
@@ -517,9 +489,9 @@
                         </div>
                     </a>
 
-                    <a href="https://www.behance.net/gallery/232347839/Plano-Municipal-Profesional-%282024%29" target="_blank" class="project-card">
+                    <a href="https://www.behance.net/gallery/232347839/Plano-Municipal-Profesional-%282024%29" target="_blank" class="project-card fade-in-up">
                         <div class="project-image-container">
-                            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/c5eb49232347839.689ac25a63221.jpg" alt="Planos">
+                            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/c5eb49232347839.689ac25a63221.jpg" alt="Planos" loading="lazy">
                         </div>
                         <div class="project-info">
                             <div class="p-title">Planos Municipales</div>
@@ -532,9 +504,9 @@
                         </div>
                     </a>
 
-                    <a href="https://www.behance.net/gallery/232344061/INTERVENCION-URBANA-Proyecto-Acadmico-%282025%29" target="_blank" class="project-card">
+                    <a href="https://www.behance.net/gallery/232344061/INTERVENCION-URBANA-Proyecto-Acadmico-%282025%29" target="_blank" class="project-card fade-in-up">
                         <div class="project-image-container">
-                            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/02f691232344061.689aa6e222427.jpg" alt="Urbano">
+                            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/02f691232344061.689aa6e222427.jpg" alt="Urbano" loading="lazy">
                         </div>
                         <div class="project-info">
                             <div class="p-title">Intervención Urbana</div>
@@ -547,9 +519,9 @@
                         </div>
                     </a>
 
-                    <a href="https://www.behance.net/gallery/232344485/CONJUNTO-HABITACIONAL-Proyecto-Acadmico-%282025%29" target="_blank" class="project-card">
+                    <a href="https://www.behance.net/gallery/232344485/CONJUNTO-HABITACIONAL-Proyecto-Acadmico-%282025%29" target="_blank" class="project-card fade-in-up">
                         <div class="project-image-container">
-                            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/8bc5a4232344485.689aaa72e3cef.jpg" alt="Conjunto Habitacional">
+                            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/8bc5a4232344485.689aaa72e3cef.jpg" alt="Conjunto Habitacional" loading="lazy">
                         </div>
                         <div class="project-info">
                             <div class="p-title">Conjunto Habitacional</div>
@@ -562,9 +534,9 @@
                         </div>
                     </a>
 
-                    <a href="https://www.behance.net/gallery/239108565/BIBLIOTECA-Proyecto-Acadmico-%282025%29" target="_blank" class="project-card">
+                    <a href="https://www.behance.net/gallery/239108565/BIBLIOTECA-Proyecto-Acadmico-%282025%29" target="_blank" class="project-card fade-in-up">
                         <div class="project-image-container">
-                            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/16b476239108565.692283c72e728.png" alt="Biblioteca">
+                            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/16b476239108565.692283c72e728.png" alt="Biblioteca" loading="lazy">
                         </div>
                         <div class="project-info">
                             <div class="p-title">Biblioteca Costera</div>
@@ -583,5 +555,42 @@
         </main>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // 1. ANIMACIÓN DE ENTRADA (SCROLL REVEAL)
+            const reveals = document.querySelectorAll('.fade-in-up, .timeline-box');
+            
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        revealObserver.unobserve(entry.target); // Dejar de observar una vez animado
+                    }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            });
+
+            reveals.forEach(el => revealObserver.observe(el));
+
+            // 2. ANIMACIÓN DE BARRAS DE HABILIDAD (SKILLS)
+            const skillBars = document.querySelectorAll('.skill-bar-fill');
+            
+            const skillObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const bar = entry.target;
+                        const width = bar.getAttribute('data-width'); // Leer el valor del atributo personalizado
+                        bar.style.width = width; // Aplicar el ancho para activar la transición CSS
+                        skillObserver.unobserve(bar);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            skillBars.forEach(bar => skillObserver.observe(bar));
+        });
+    </script>
 </body>
 </html>
