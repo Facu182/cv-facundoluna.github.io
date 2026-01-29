@@ -7,11 +7,10 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Montserrat:wght@400;700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- 1. VARIABLES --- */
+        /* --- VARIABLES --- */
         :root {
             --bg-color: #ffffff;
             --text-main: #000000;
@@ -23,174 +22,83 @@
             --font-tech: 'Space Grotesk', sans-serif;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; /* Cursor custom en PC */ }
-
-        body {
-            font-family: var(--font-main);
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            overflow-x: hidden;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        body { font-family: var(--font-main); background: var(--bg-color); color: var(--text-main); overflow-x: hidden; }
         a { text-decoration: none; color: inherit; cursor: none; }
         img { max-width: 100%; display: block; }
 
-        /* --- 2. CURSOR CUSTOM (Solo PC) --- */
+        /* CURSOR (PC) */
         @media (pointer: fine) {
-            #cursor {
-                position: fixed; width: 12px; height: 12px;
-                background: var(--accent); border-radius: 50%;
-                pointer-events: none; transform: translate(-50%, -50%);
-                z-index: 9999; transition: transform 0.1s; mix-blend-mode: multiply;
-            }
-            #cursor-ring {
-                position: fixed; width: 40px; height: 40px;
-                border: 1px solid #ccc; border-radius: 50%;
-                pointer-events: none; transform: translate(-50%, -50%);
-                z-index: 9998; transition: all 0.15s ease-out;
-            }
-            .hover-active #cursor { transform: translate(-50%, -50%) scale(0.5); }
+            #cursor { position: fixed; width: 12px; height: 12px; background: var(--accent); border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); z-index: 9999; mix-blend-mode: multiply; }
+            #cursor-ring { position: fixed; width: 40px; height: 40px; border: 1px solid #ccc; border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); z-index: 9998; transition: 0.1s; }
+            .hover-active #cursor { transform: scale(0.5); }
             .hover-active #cursor-ring { width: 60px; height: 60px; border-color: var(--accent); border-width: 2px; }
         }
 
-        /* --- 3. NAV --- */
-        nav {
-            position: fixed; top: 0; width: 100%; padding: 25px 50px;
-            display: flex; justify-content: space-between; align-items: center;
-            background: var(--glass); backdrop-filter: blur(10px); z-index: 100;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
+        /* HEADER & NAV */
+        nav { position: fixed; top: 0; width: 100%; padding: 25px 50px; display: flex; justify-content: space-between; align-items: center; background: var(--glass); backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.05); }
         .logo { font-family: var(--font-tech); font-weight: 700; font-size: 1.2rem; letter-spacing: -1px; text-transform: uppercase; }
         .social-links a { font-family: var(--font-tech); font-size: 0.85rem; margin-left: 20px; font-weight: 600; text-transform: uppercase; }
 
-        /* --- 4. HERO --- */
         header { padding: 180px 50px 60px; max-width: 1400px; margin: 0 auto; }
-        h1 {
-            font-family: var(--font-heading); font-size: 7vw; font-weight: 900;
-            line-height: 0.9; margin-bottom: 30px; letter-spacing: -3px;
-            opacity: 0; animation: slideIn 0.8s ease 0.2s forwards;
-        }
+        h1 { font-family: var(--font-heading); font-size: 7vw; font-weight: 900; line-height: 0.9; margin-bottom: 30px; letter-spacing: -3px; opacity: 0; animation: slideIn 0.8s ease 0.2s forwards; }
         .subtitle-group { border-left: 3px solid var(--accent); padding-left: 25px; margin-top: 30px; opacity: 0; animation: slideIn 0.8s ease 0.4s forwards; }
         .bio { font-size: 1.1rem; color: var(--text-secondary); max-width: 500px; line-height: 1.6; }
 
-        /* FILTROS */
         .filters { display: flex; gap: 10px; margin-top: 40px; flex-wrap: wrap; }
-        .filter-btn {
-            border: 1px solid #e0e0e0; background: transparent;
-            font-family: var(--font-tech); font-size: 0.8rem; text-transform: uppercase;
-            padding: 8px 20px; font-weight: 700; transition: all 0.3s; color: #888;
-        }
+        .filter-btn { border: 1px solid #e0e0e0; background: transparent; font-family: var(--font-tech); font-size: 0.8rem; text-transform: uppercase; padding: 8px 20px; font-weight: 700; transition: 0.3s; color: #888; }
         .filter-btn.active, .filter-btn:hover { background: var(--text-main); color: white; border-color: var(--text-main); }
 
-        /* --- 5. PORTFOLIO GRID (PC) --- */
-        .portfolio-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-            gap: 30px; max-width: 1400px; margin: 0 auto; padding: 0 50px 100px;
-        }
-        .project-card { opacity: 0; transform: translateY(30px); transition: all 0.5s; display: block; }
+        /* PORTFOLIO GRID */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 30px; max-width: 1400px; margin: 0 auto; padding: 0 50px 100px; }
+        .project-card { opacity: 0; transform: translateY(30px); transition: 0.5s; display: block; }
         .project-card.visible { opacity: 1; transform: translateY(0); }
-        
         .image-container { position: relative; overflow: hidden; aspect-ratio: 16/10; background: #f4f4f4; }
         .image-container img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; filter: grayscale(100%); }
         .project-card:hover img { transform: scale(1.05); filter: grayscale(0%); }
-
         .project-info { margin-top: 15px; display: flex; justify-content: space-between; border-bottom: 2px solid transparent; padding-bottom: 10px; }
         .project-card:hover .project-info { border-bottom-color: var(--accent); }
         .p-title { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 800; line-height: 1; text-transform: uppercase; }
         .p-year { font-family: var(--font-tech); font-weight: 700; color: var(--accent); }
 
-        /* --- 6. AI LAB SECTION (@efele.arq) --- */
-        .ai-lab-section {
-            background: #050505; color: white; padding: 80px 50px;
-        }
-        
+        /* AI LAB SECTION */
+        .ai-lab-section { background: #050505; color: white; padding: 80px 50px; }
         .lab-container { max-width: 1400px; margin: 0 auto; }
-        
-        .lab-header { 
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px; border-bottom: 1px solid #333; padding-bottom: 30px;
-        }
-
+        .lab-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px; border-bottom: 1px solid #333; padding-bottom: 30px; }
         .lab-brand { display: flex; align-items: center; gap: 20px; }
-        
-        /* LOGO ESTILO INSTAGRAM */
-        .lab-logo-img {
-            width: 80px; height: 80px; border-radius: 50%; object-fit: cover;
-            border: 2px solid var(--accent); padding: 3px; background: black;
-        }
-
+        .lab-logo-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); padding: 3px; background: black; }
         .lab-title h2 { font-family: var(--font-tech); font-size: 2rem; margin: 0; }
         .lab-title span { color: var(--accent); font-size: 1rem; font-weight: 400; display: block; margin-top: 5px; }
-        
-        .follow-btn {
-            background: var(--accent); color: white; padding: 10px 25px;
-            font-family: var(--font-tech); font-weight: 700; text-transform: uppercase;
-            font-size: 0.8rem; border-radius: 4px; transition: 0.3s;
-        }
+        .follow-btn { background: var(--accent); color: white; padding: 10px 25px; font-family: var(--font-tech); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; border-radius: 4px; transition: 0.3s; }
         .follow-btn:hover { background: white; color: black; }
 
-        /* GRID PARA PC */
-        .lab-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px;
-        }
-
-        .lab-item { 
-            position: relative; aspect-ratio: 1/1; overflow: hidden; background: #222; cursor: pointer;
-        }
+        .lab-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
+        .lab-item { position: relative; aspect-ratio: 1/1; overflow: hidden; background: #222; }
         .lab-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; opacity: 0.8; }
-        .lab-overlay {
-            position: absolute; inset: 0; background: rgba(0, 140, 149, 0.9);
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            opacity: 0; transition: 0.3s; transform: translateY(20px);
-        }
+        .lab-overlay { position: absolute; inset: 0; background: rgba(0, 140, 149, 0.9); display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; transition: 0.3s; transform: translateY(20px); }
         .lab-item:hover img { opacity: 0.4; transform: scale(1.1); }
         .lab-item:hover .lab-overlay { opacity: 1; transform: translateY(0); }
 
-        /* --- 7. RESPONSIVE (MÓVIL) --- */
+        /* RESPONSIVE */
         @media (max-width: 768px) {
-            /* GENERAL */
-            * { cursor: auto !important; } /* Adiós cursor custom */
+            * { cursor: auto !important; }
             h1 { font-size: 13vw; }
             nav { padding: 20px; }
             .social-links { display: none; }
             header { padding: 120px 20px 40px; }
             .portfolio-grid { padding: 0 20px 60px; grid-template-columns: 1fr; gap: 40px; }
+            .image-container img { filter: grayscale(0%); }
             
-            /* Ajustes Card Móvil */
-            .image-container img { filter: grayscale(0%); } /* Color siempre activo */
-            .project-info { border-bottom: 1px solid #eee; }
-
-            /* AI LAB MÓVIL (Transformación a Carrusel) */
             .ai-lab-section { padding: 40px 20px; }
             .lab-header { flex-direction: column; align-items: flex-start; gap: 20px; }
-            .lab-logo-img { width: 60px; height: 60px; }
-            
-            .lab-grid {
-                display: flex; /* Flexbox para scroll horizontal */
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                gap: 15px;
-                padding-bottom: 20px;
-                -webkit-overflow-scrolling: touch; /* Suavidad en iOS */
-            }
-
-            .lab-item {
-                flex: 0 0 85%; /* El item ocupa el 85% del ancho de la pantalla */
-                scroll-snap-align: center;
-                border-radius: 8px;
-            }
-
-            .lab-overlay {
-                /* En móvil, el texto va siempre visible abajo o con gradiente */
-                opacity: 1; transform: none; background: linear-gradient(to top, black, transparent);
-                justify-content: flex-end; padding-bottom: 20px; align-items: flex-start; padding-left: 20px;
-            }
+            .lab-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 15px; padding-bottom: 20px; }
+            .lab-item { flex: 0 0 85%; scroll-snap-align: center; border-radius: 8px; }
+            .lab-overlay { opacity: 1; transform: none; background: linear-gradient(to top, black, transparent); justify-content: flex-end; padding-bottom: 20px; align-items: flex-start; padding-left: 20px; }
         }
 
-        /* --- 8. FOOTER --- */
         footer { background: #000; color: #fff; padding: 60px 50px; border-top: 1px solid #333; }
         footer h2 { font-family: var(--font-heading); font-size: 3rem; margin-bottom: 10px; }
         .credits { font-size: 0.8rem; color: #666; margin-top: 40px; display: flex; justify-content: space-between; }
-
         @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
     </style>
 </head>
@@ -202,7 +110,7 @@
     <nav>
         <div class="logo">FL <span style="color:var(--accent)">//</span> 2026</div>
         <div class="social-links">
-            <a href="mailto:facundoluna182@gmail.com" class="hover-trigger">Contacto</a>
+            <a href="mailto:facundoluna182@gmail.com" class="hover-trigger">Contact</a>
             <a href="https://www.instagram.com/efele.arq" target="_blank" class="hover-trigger">Instagram</a>
         </div>
     </nav>
@@ -292,11 +200,11 @@
             <div class="lab-header">
                 <div class="lab-brand">
                     
-                    <img src="https://instagram.feze16-1.fna.fbcdn.net/v/t51.2885-19/602111644_17845888995625965_2662555675062207747_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=instagram.feze16-1.fna.fbcdn.net&_nc_cat=109&_nc_oc=Q6cZ2QGUbKGGRT8Lo6TmbA7np0p4srBR2XE7HJsCWFVsXQhjChavnQu1zwHtn8A_gLaG5l7UMgnyf1ZZpPV3ZVo3WtX8&_nc_ohc=ED-Wq-k6KL0Q7kNvwHhyj3O&_nc_gid=8zyWsJdUIzAIZAJvd1Ozfw&edm=AIhb9MIBAAAA&ccb=7-5&oh=00_AfoQk8EEXMKIh77Jxlq0X9GwvOq012OMA9CWnxmwyfBf2w&oe=6980CE45&_nc_sid=8aafe2" alt="Logo EFELE" class="lab-logo-img">
+                    <img src="logo.jpg" alt="Logo EFELE" class="lab-logo-img">
                     
                     <div class="lab-title">
                         <h2>EFELE.ARQ</h2>
-                        <span>Laboratorio de investigación y diseño de IA</span>
+                        <span>AI Research Lab & Design</span>
                     </div>
                 </div>
                 <a href="https://www.instagram.com/efele.arq" target="_blank" class="follow-btn hover-trigger">Seguir en Instagram</a>
@@ -304,85 +212,55 @@
 
             <div class="lab-grid">
                 
-                <a href="https://www.instagram.com/p/DTvxyX9Dnkw/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="lab-item hover-trigger">
+                <a href="https://www.instagram.com/efele.arq" target="_blank" class="lab-item hover-trigger">
                     <img src="foto1.jpg" alt="Fachada AI">
-                    <div class="lab-overlay">
-                        <span>Renderizado Exterior</span>
-                    </div>
+                    <div class="lab-overlay"><span>Diseño de Fachadas</span></div>
                 </a>
 
-                <a href="https://www.instagram.com/p/DTRQJp7jjR0/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="lab-item hover-trigger">
-                     <img src="foto2.jpg" alt="Interior AI">
-                    <div class="lab-overlay">
-                        <span>Renderizado Interior</span>
-                    </div>
+                <a href="https://www.instagram.com/efele.arq" target="_blank" class="lab-item hover-trigger">
+                    <img src="foto2.jpg" alt="Interior AI">
+                    <div class="lab-overlay"><span>Interiorismo Generativo</span></div>
                 </a>
 
-                <a href="https://www.instagram.com/p/DTBELW0DgCn/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="lab-item hover-trigger">
-                     <img src="foto3.jpg" alt="Proceso AI">
-                    <div class="lab-overlay">
-                        <span>Remodelacion con IA</span>
-                    </div>
+                <a href="https://www.instagram.com/efele.arq" target="_blank" class="lab-item hover-trigger">
+                    <img src="foto3.jpg" alt="Proceso AI">
+                    <div class="lab-overlay"><span>Workflow Híbrido</span></div>
                 </a>
                 
-                <a href="https://www.instagram.com/p/DTltUDZDmQJ/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="lab-item hover-trigger">
-                     <img src="foto4.jpg" alt="Detalle">
-                    <div class="lab-overlay">
-                        <span>Laminas Informativas</span>
-                    </div>
+                <a href="https://www.instagram.com/efele.arq" target="_blank" class="lab-item hover-trigger">
+                    <img src="foto4.jpg" alt="Detalle">
+                    <div class="lab-overlay"><span>Detalles Constructivos</span></div>
                 </a>
+
             </div>
         </div>
     </section>
 
     <footer>
         <h2>FACUNDO LUNA.</h2>
-        <div class="credits">
-            <span>&copy; 2026</span>
-            <span>Diseñado en Buenos Aires</span>
-        </div>
+        <div class="credits"><span>&copy; 2026</span><span>Diseñado en Buenos Aires</span></div>
     </footer>
 
     <script>
-        // LÓGICA DE CURSOR (Solo activo si no es táctil - PC)
-        const cursor = document.getElementById('cursor');
-        const ring = document.getElementById('cursor-ring');
-        
-        // Detectar si el dispositivo tiene mouse fino (PC)
-        const isFinePointer = window.matchMedia('(pointer: fine)').matches;
-
-        if (isFinePointer) {
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-                setTimeout(() => {
-                    ring.style.left = e.clientX + 'px';
-                    ring.style.top = e.clientY + 'px';
-                }, 70);
+        const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+        if(window.matchMedia('(pointer: fine)').matches){
+            document.addEventListener('mousemove',e=>{
+                cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px';
+                setTimeout(()=>{ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px'},70)
             });
-
-            document.querySelectorAll('.hover-trigger').forEach(link => {
-                link.addEventListener('mouseenter', () => document.body.classList.add('hover-active'));
-                link.addEventListener('mouseleave', () => document.body.classList.remove('hover-active'));
+            document.querySelectorAll('.hover-trigger').forEach(l=>{
+                l.addEventListener('mouseenter',()=>document.body.classList.add('hover-active'));
+                l.addEventListener('mouseleave',()=>document.body.classList.remove('hover-active'))
             });
         }
-
-        // SCROLL REVEAL SIMPLE
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.project-card').forEach(c => observer.observe(c));
-
-        // FILTROS
-        function filterProjects(cat) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
-            document.querySelectorAll('.project-card').forEach(c => {
-                c.style.display = (cat === 'all' || c.dataset.category === cat) ? 'block' : 'none';
-                setTimeout(() => c.style.opacity = (c.style.display === 'block') ? '1' : '0', 50);
-            });
+        const observer=new IntersectionObserver(e=>{e.forEach(n=>{if(n.isIntersecting)n.target.classList.add('visible')})},{threshold:0.1});
+        document.querySelectorAll('.project-card').forEach(c=>observer.observe(c));
+        function filterProjects(t){
+            document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));event.target.classList.add('active');
+            document.querySelectorAll('.project-card').forEach(c=>{
+                c.style.display=(t==='all'||c.dataset.category===t)?'block':'none';
+                setTimeout(()=>c.style.opacity=(c.style.display==='block')?'1':'0',50)
+            })
         }
     </script>
 </body>
