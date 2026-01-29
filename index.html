@@ -35,7 +35,7 @@
         a { text-decoration: none; color: inherit; cursor: none; }
         img { max-width: 100%; display: block; height: auto; }
 
-        /* --- 2. CURSOR PERSONALIZADO (Solo PC) --- */
+        /* --- 2. CURSOR (Solo PC) --- */
         @media (pointer: fine) {
             #cursor, #cursor-ring {
                 position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; will-change: transform; 
@@ -46,26 +46,24 @@
             body.hover-active #cursor-ring { width: 60px; height: 60px; border-color: var(--accent); border-width: 2px; }
         }
 
-        /* --- 3. BARRA DE NAVEGACIÓN --- */
+        /* --- 3. NAV --- */
         nav { 
             position: fixed; top: 0; width: 100%; padding: 20px 50px; 
             display: flex; justify-content: space-between; align-items: center; 
-            background: var(--glass); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.05);
+            background: var(--glass); backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.05);
         }
         .logo { font-family: var(--font-tech); font-weight: 700; font-size: 1.2rem; letter-spacing: -1px; text-transform: uppercase; }
         .social-links { display: flex; align-items: center; }
         .social-links a { font-family: var(--font-tech); font-size: 0.85rem; margin-left: 25px; font-weight: 600; text-transform: uppercase; transition: color 0.3s; }
         .social-links a:hover { color: var(--accent); }
 
-        /* Botón CV */
         .cv-button {
             border: 1px solid var(--text-main); padding: 8px 20px; border-radius: 50px;
             display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s ease;
         }
         .cv-button:hover { background: var(--text-main); color: white !important; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 
-        /* --- 4. HERO SECTION --- */
+        /* --- 4. HERO --- */
         header { padding: 180px 50px 40px; max-width: 1400px; margin: 0 auto; }
         h1 { 
             font-family: var(--font-heading); font-size: 7vw; font-weight: 900; 
@@ -75,7 +73,6 @@
         .subtitle-group { border-left: 3px solid var(--accent); padding-left: 25px; margin-top: 30px; opacity: 0; animation: slideIn 0.8s ease 0.4s forwards; }
         .bio { font-size: 1.15rem; color: var(--text-secondary); max-width: 550px; line-height: 1.6; }
 
-        /* TECH STACK BAR */
         .stack-bar {
             margin-top: 45px; padding-top: 20px; border-top: 1px solid #eee;
             display: flex; align-items: center; gap: 20px; flex-wrap: wrap; opacity: 0; animation: slideIn 0.8s ease 0.6s forwards;
@@ -86,7 +83,6 @@
         .stack-item i { color: var(--accent); font-size: 1rem; }
         .stack-item:hover { color: var(--text-main); transform: translateY(-2px); }
 
-        /* FILTROS */
         .filters { display: flex; gap: 10px; margin-top: 40px; flex-wrap: wrap; }
         .filter-btn { 
             border: 1px solid #e0e0e0; background: transparent; 
@@ -95,7 +91,7 @@
         }
         .filter-btn.active, .filter-btn:hover { background: var(--text-main); color: white; border-color: var(--text-main); }
 
-        /* --- 5. GRID DE PROYECTOS --- */
+        /* --- 5. GRID --- */
         .portfolio-grid { 
             display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); 
             gap: 40px; max-width: 1400px; margin: 0 auto; padding: 0 50px 100px; 
@@ -105,7 +101,6 @@
             display: block; will-change: opacity, transform;
         }
         .project-card.visible { opacity: 1; transform: translateY(0); }
-        
         .image-container { position: relative; overflow: hidden; aspect-ratio: 16/10; background: #f4f4f4; }
         .image-container img { 
             width: 100%; height: 100%; object-fit: cover; 
@@ -113,88 +108,52 @@
             filter: grayscale(100%); will-change: transform, filter;
         }
         .project-card:hover img { transform: scale(1.03); filter: grayscale(0%); }
-        
         .project-info { margin-top: 15px; display: flex; justify-content: space-between; border-bottom: 2px solid transparent; padding-bottom: 10px; transition: border-color 0.3s;}
         .project-card:hover .project-info { border-bottom-color: var(--accent); }
         .p-title { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 800; line-height: 1; text-transform: uppercase; }
         .p-year { font-family: var(--font-tech); font-weight: 700; color: var(--accent); }
 
-        /* --- 6. SLIDER DE COMPARACIÓN (SUPERPUESTO CORREGIDO) --- */
+        /* --- 6. SLIDER SUPERPUESTO (CORREGIDO) --- */
         .comparison-section { padding: 100px 50px; background: #fff; }
         .comp-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.5fr; gap: 50px; align-items: center; }
         .comp-text h2 { font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 20px; line-height: 1; }
         .comp-label { font-family: var(--font-tech); font-weight: 700; color: var(--accent); font-size: 0.8rem; letter-spacing: 1px; margin-top: 20px; display: block; }
         
-        /* Contenedor Principal del Slider */
-        .img-comp-container {
-            position: relative;
-            height: 500px; /* Altura Fija */
-            overflow: hidden;
-            width: 100%;
-            background: #eee;
-            cursor: ew-resize;
-        }
+        .img-comp-container { position: relative; height: 500px; width: 100%; overflow: hidden; background: #eee; cursor: ew-resize; }
+        
+        /* Imagen de Fondo (RENDER FINAL) */
+        .img-comp-img { position: absolute; width: 100%; height: 100%; overflow: hidden; }
+        .img-comp-img img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
-        /* Imagen de Fondo (La "Después") */
-        .img-comp-img {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
+        /* Imagen de Frente (MODELO BASE) - Esta se recorta */
+        /* IMPORTANTE: El ancho se controla por JS, pero el img adentro NO debe ser 100% del padre, sino del contenedor total */
+        .img-comp-overlay {
+            width: 50%; /* Inicio */
+            z-index: 2;
+            border-right: 3px solid white; /* Línea separadora */
+            background: #fff; /* Evita que se vea el fondo mientras carga */
         }
         
-        .img-comp-img img {
-            display: block;
-            width: 100%; /* Ocupa todo el contenedor */
-            height: 100%;
-            object-fit: cover; /* CLAVE: Recorta para llenar sin deformar */
-            object-position: center; /* Centrado */
-        }
-
-        /* Imagen de Arriba (La "Antes") - Esta es la que se corta */
-        .img-comp-overlay {
-            width: 50%; /* Empieza a la mitad */
-            z-index: 2;
-            border-right: 2px solid white; /* Línea divisoria */
-        }
-
-        /* BARRA DESLIZADORA (Botón) */
+        /* El slider (Botón) */
         .img-comp-slider {
-            position: absolute;
-            z-index: 9;
-            cursor: ew-resize;
-            width: 40px; height: 40px;
-            background-color: var(--accent);
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
+            position: absolute; z-index: 9; cursor: ew-resize;
+            width: 40px; height: 40px; background-color: var(--accent);
+            top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            border: 2px solid white;
-            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            border: 2px solid white; box-shadow: 0 0 15px rgba(0,0,0,0.3);
         }
         .img-comp-slider::before { content: '↔'; color: white; font-weight: bold; }
 
-        /* --- 7. SECCIÓN DE SERVICIOS --- */
+        /* --- 7. SERVICIOS --- */
         .tech-process-section { background: var(--light-gray); padding: 80px 50px; }
-        .process-container {
-            max-width: 1400px; margin: 0 auto;
-            display: grid; grid-template-columns: 1fr; 
-            gap: 40px; align-items: center; text-align: center;
-        }
+        .process-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; text-align: center; }
         .process-text h2 { font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 20px; line-height: 1; letter-spacing: -1px; }
         .process-text p { color: var(--text-secondary); margin-bottom: 30px; line-height: 1.6; max-width: 600px; margin-left: auto; margin-right: auto; }
-        
-        .services-list { 
-            display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 30px;
-        }
-        .service-item { 
-            display: flex; align-items: center; gap: 10px; 
-            font-weight: 600; font-family: var(--font-tech); font-size: 0.9rem;
-            background: white; padding: 10px 20px; border-radius: 50px; border: 1px solid #eee;
-        }
+        .services-list { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 30px; }
+        .service-item { display: flex; align-items: center; gap: 10px; font-weight: 600; font-family: var(--font-tech); font-size: 0.9rem; background: white; padding: 10px 20px; border-radius: 50px; border: 1px solid #eee; }
         .service-item::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
 
-        /* --- 8. AI LAB (@efele.arq) --- */
+        /* --- 8. AI LAB --- */
         .ai-lab-section { background: #050505; color: white; padding: 100px 50px; }
         .lab-container { max-width: 1400px; margin: 0 auto; }
         .lab-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px; border-bottom: 1px solid #333; padding-bottom: 30px; }
@@ -202,38 +161,30 @@
         .lab-logo-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); padding: 3px; background: black; }
         .lab-title h2 { font-family: var(--font-tech); font-size: 2rem; margin: 0; }
         .lab-title span { color: var(--accent); font-size: 1rem; font-weight: 400; display: block; margin-top: 5px; }
-        
         .follow-btn { background: var(--accent); color: white; padding: 10px 30px; font-family: var(--font-tech); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; border-radius: 4px; transition: 0.3s; }
         .follow-btn:hover { background: white; color: black; }
 
         .lab-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
         .lab-item { position: relative; aspect-ratio: 1/1; overflow: hidden; background: #1a1a1a; cursor: pointer; }
-        
         .lab-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s ease; opacity: 0.8; filter: grayscale(100%); will-change: filter, opacity; }
         .lab-overlay { position: absolute; inset: 0; background: rgba(0, 140, 149, 0.9); display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; transition: 0.4s ease; transform: translateY(10px); }
         .lab-item:hover img { opacity: 1; filter: grayscale(0%); transform: scale(1.05); }
         .lab-item:hover .lab-overlay { opacity: 1; transform: translateY(0); }
 
-        /* --- 9. FOOTER --- */
         footer { background: #000; color: #fff; padding: 80px 50px; border-top: 1px solid #222; }
         footer h2 { font-family: var(--font-heading); font-size: 4rem; margin-bottom: 20px; line-height: 1; letter-spacing: -2px; }
         .credits { font-size: 0.85rem; color: #666; margin-top: 60px; display: flex; justify-content: space-between; border-top: 1px solid #222; padding-top: 20px; }
 
-        /* RESPONSIVE */
         @media (max-width: 768px) {
             * { cursor: auto !important; } h1 { font-size: 13vw; } nav { padding: 20px; }
             .social-links { display: none; }
-            .cv-button { position: absolute; top: 20px; right: 20px; font-size: 0.75rem; padding: 6px 15px; display: flex; } 
+            .cv-button { position: absolute; top: 20px; right: 20px; font-size: 0.75rem; padding: 6px 15px; display: flex; }
             header { padding: 120px 20px 40px; }
             .stack-bar { flex-direction: column; align-items: flex-start; gap: 15px; }
-            
             .comp-container { grid-template-columns: 1fr; } 
-            .img-comp-container { height: 300px; } /* Altura slider movil */
-            .img-comp-img img { height: 300px; }
-            
+            .img-comp-container, .img-comp-img img { height: 300px; }
             .portfolio-grid { padding: 0 20px 60px; grid-template-columns: 1fr; gap: 40px; }
             .image-container img { filter: grayscale(0%); }
-            
             .ai-lab-section { padding: 50px 20px; }
             .lab-header { flex-direction: column; align-items: flex-start; gap: 20px; }
             .lab-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 15px; padding-bottom: 20px; }
@@ -332,7 +283,7 @@
 
             <div class="img-comp-container">
                 <div class="img-comp-img">
-                    <img src="despues.jpg" alt="Final">
+                    <img src="despues.jpg" alt="Final"> 
                 </div>
                 <div class="img-comp-img img-comp-overlay">
                     <img src="antes.jpg" alt="Base">
@@ -370,16 +321,16 @@
 
             <div class="lab-grid">
                 <a href="https://www.instagram.com/efele.arq" target="_blank" class="lab-item hover-trigger">
-                    <img src="insta1.jpg" alt="Fachada AI" loading="lazy"><div class="lab-overlay"><span>Render Exterior</span></div>
+                    <img src="insta1.jpg" alt="Fachada AI" loading="lazy" decoding="async"><div class="lab-overlay"><span>Render Exterior</span></div>
                 </a>
                 <a href="https://www.instagram.com/efele.arq" target="_blank" class="lab-item hover-trigger">
-                    <img src="insta2.jpg" alt="Interior AI" loading="lazy"><div class="lab-overlay"><span>Render Interior</span></div>
+                    <img src="insta2.jpg" alt="Interior AI" loading="lazy" decoding="async"><div class="lab-overlay"><span>Render Interior</span></div>
                 </a>
                 <a href="https://www.instagram.com/efele.arq" target="_blank" class="lab-item hover-trigger">
-                    <img src="insta3.jpg" alt="Proceso AI" loading="lazy"><div class="lab-overlay"><span>Remodelacion con IA</span></div>
+                    <img src="insta3.jpg" alt="Proceso AI" loading="lazy" decoding="async"><div class="lab-overlay"><span>Remodelacion con IA</span></div>
                 </a>
                 <a href="https://www.instagram.com/efele.arq" target="_blank" class="lab-item hover-trigger">
-                    <img src="insta4.jpg" alt="Detalle" loading="lazy"><div class="lab-overlay"><span>Laminas Informativas</span></div>
+                    <img src="insta4.jpg" alt="Detalle" loading="lazy" decoding="async"><div class="lab-overlay"><span>Laminas Informativas</span></div>
                 </a>
             </div>
         </div>
@@ -421,8 +372,7 @@
             });
         }
 
-        // --- SLIDER LOGIC (SUPERPUESTO) ---
-        // Esperamos a que todo cargue para calcular tamaños
+        // SLIDER SUPERPUESTO (CORREGIDO)
         window.addEventListener('load', function() {
             initSlider();
         });
@@ -430,28 +380,24 @@
         function initSlider() {
             const overlay = document.querySelector('.img-comp-overlay');
             const container = document.querySelector('.img-comp-container');
-            const imgTop = overlay.querySelector('img'); // Imagen de arriba (Antes)
+            const imgTop = overlay.querySelector('img'); 
             const slider = document.createElement("DIV");
             
-            // Forzamos que la imagen de arriba tenga el ANCHO TOTAL del contenedor, no del div recortado
-            // Esto es lo que hace que se vea "superpuesto" y no recortado
+            // FORZAR TAMAÑO FIJO DE LA IMAGEN TOP PARA QUE NO SE APLASTE
             function syncSize() {
                 imgTop.style.width = container.offsetWidth + "px";
                 imgTop.style.height = container.offsetHeight + "px";
             }
             syncSize();
-            window.addEventListener('resize', syncSize); // Recalcular si cambian tamaño de ventana
+            window.addEventListener('resize', syncSize); 
 
-            // Crear Botón
             slider.setAttribute("class", "img-comp-slider");
             container.insertBefore(slider, overlay);
             
-            // Centrar botón inicial
             slider.style.top = "50%";
             slider.style.left = "50%";
             overlay.style.width = "50%";
 
-            // Eventos Mouse/Touch
             let clicked = 0;
             slider.addEventListener("mousedown", slideReady);
             window.addEventListener("mouseup", slideFinish);
