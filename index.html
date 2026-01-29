@@ -119,22 +119,58 @@
         .p-title { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 800; line-height: 1; text-transform: uppercase; }
         .p-year { font-family: var(--font-tech); font-weight: 700; color: var(--accent); }
 
-        /* --- 6. SECCIÓN SLIDER (ANTES/DESPUÉS) --- */
+        /* --- 6. SLIDER DE COMPARACIÓN (SUPERPUESTO CORREGIDO) --- */
         .comparison-section { padding: 100px 50px; background: #fff; }
         .comp-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.5fr; gap: 50px; align-items: center; }
         .comp-text h2 { font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 20px; line-height: 1; }
         .comp-label { font-family: var(--font-tech); font-weight: 700; color: var(--accent); font-size: 0.8rem; letter-spacing: 1px; margin-top: 20px; display: block; }
         
-        .img-comp-container { position: relative; height: 500px; overflow: hidden; cursor: col-resize; border: 1px solid #eee; }
-        .img-comp-img { position: absolute; width: auto; height: auto; overflow: hidden; }
-        .img-comp-img img { display: block; vertical-align: middle; height: 500px; object-fit: cover; width: 100%; max-width: none; }
+        /* Contenedor Principal del Slider */
+        .img-comp-container {
+            position: relative;
+            height: 500px; /* Altura Fija */
+            overflow: hidden;
+            width: 100%;
+            background: #eee;
+            cursor: ew-resize;
+        }
+
+        /* Imagen de Fondo (La "Después") */
+        .img-comp-img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
         
+        .img-comp-img img {
+            display: block;
+            width: 100%; /* Ocupa todo el contenedor */
+            height: 100%;
+            object-fit: cover; /* CLAVE: Recorta para llenar sin deformar */
+            object-position: center; /* Centrado */
+        }
+
+        /* Imagen de Arriba (La "Antes") - Esta es la que se corta */
+        .img-comp-overlay {
+            width: 50%; /* Empieza a la mitad */
+            z-index: 2;
+            border-right: 2px solid white; /* Línea divisoria */
+        }
+
+        /* BARRA DESLIZADORA (Botón) */
         .img-comp-slider {
-            position: absolute; z-index: 9; cursor: col-resize;
-            width: 40px; height: 40px; background-color: var(--accent);
-            top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 50%;
+            position: absolute;
+            z-index: 9;
+            cursor: ew-resize;
+            width: 40px; height: 40px;
+            background-color: var(--accent);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            border: 2px solid white; box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            border: 2px solid white;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
         }
         .img-comp-slider::before { content: '↔'; color: white; font-weight: bold; }
 
@@ -142,7 +178,7 @@
         .tech-process-section { background: var(--light-gray); padding: 80px 50px; }
         .process-container {
             max-width: 1400px; margin: 0 auto;
-            display: grid; grid-template-columns: 1fr; /* Centrado para limpieza */
+            display: grid; grid-template-columns: 1fr; 
             gap: 40px; align-items: center; text-align: center;
         }
         .process-text h2 { font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 20px; line-height: 1; letter-spacing: -1px; }
@@ -173,7 +209,6 @@
         .lab-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
         .lab-item { position: relative; aspect-ratio: 1/1; overflow: hidden; background: #1a1a1a; cursor: pointer; }
         
-        /* FOTOS DE INSTAGRAM: B/N por defecto -> COLOR al hover */
         .lab-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s ease; opacity: 0.8; filter: grayscale(100%); will-change: filter, opacity; }
         .lab-overlay { position: absolute; inset: 0; background: rgba(0, 140, 149, 0.9); display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; transition: 0.4s ease; transform: translateY(10px); }
         .lab-item:hover img { opacity: 1; filter: grayscale(0%); transform: scale(1.05); }
@@ -188,13 +223,17 @@
         @media (max-width: 768px) {
             * { cursor: auto !important; } h1 { font-size: 13vw; } nav { padding: 20px; }
             .social-links { display: none; }
-            .cv-button { position: absolute; top: 20px; right: 20px; font-size: 0.75rem; padding: 6px 15px; display: flex; } /* Botón CV visible en móvil */
+            .cv-button { position: absolute; top: 20px; right: 20px; font-size: 0.75rem; padding: 6px 15px; display: flex; } 
             header { padding: 120px 20px 40px; }
             .stack-bar { flex-direction: column; align-items: flex-start; gap: 15px; }
+            
             .comp-container { grid-template-columns: 1fr; } 
-            .img-comp-container, .img-comp-img img { height: 300px; }
+            .img-comp-container { height: 300px; } /* Altura slider movil */
+            .img-comp-img img { height: 300px; }
+            
             .portfolio-grid { padding: 0 20px 60px; grid-template-columns: 1fr; gap: 40px; }
             .image-container img { filter: grayscale(0%); }
+            
             .ai-lab-section { padding: 50px 20px; }
             .lab-header { flex-direction: column; align-items: flex-start; gap: 20px; }
             .lab-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 15px; padding-bottom: 20px; }
@@ -216,10 +255,7 @@
         <div class="social-links">
             <a href="mailto:facundoluna182@gmail.com" class="hover-trigger">Contact</a>
             <a href="https://www.instagram.com/efele.arq" target="_blank" class="hover-trigger">Instagram</a>
-            
-            <a href="cv.pdf" download class="cv-button hover-trigger">
-                <i class="fa-solid fa-download"></i> CV
-            </a>
+            <a href="cv.pdf" download class="cv-button hover-trigger"><i class="fa-solid fa-download"></i> CV</a>
         </div>
     </nav>
 
@@ -255,63 +291,33 @@
     <main class="portfolio-grid">
         
         <a href="https://www.behance.net/gallery/232345049/VIVIENDA-UNIFAMILIA-Proyecto-Acadmico-%282024%29" target="_blank" class="project-card hover-trigger" data-category="arq">
-            <div class="image-container">
-                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/0f577a232345049.689aaf95bb01d.png" alt="Vivienda" loading="lazy" decoding="async">
-            </div>
-            <div class="project-info">
-                <h3 class="p-title">Vivienda Unifamiliar</h3>
-                <span class="p-year">2024</span>
-            </div>
+            <div class="image-container"><img src="vivienda.jpg" alt="Vivienda" loading="lazy" decoding="async"></div>
+            <div class="project-info"><h3 class="p-title">Vivienda Unifamiliar</h3><span class="p-year">2024</span></div>
         </a>
         
         <a href="https://www.behance.net/gallery/239108565/BIBLIOTECA-Proyecto-Acadmico-%282025%29" target="_blank" class="project-card hover-trigger" data-category="arq">
-            <div class="image-container">
-                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/16b476239108565.692283c72e728.png" alt="Biblioteca" loading="lazy" decoding="async">
-            </div>
-            <div class="project-info">
-                <h3 class="p-title">Biblioteca Costera</h3>
-                <span class="p-year">2025</span>
-            </div>
+            <div class="image-container"><img src="biblioteca.jpg" alt="Biblioteca" loading="lazy" decoding="async"></div>
+            <div class="project-info"><h3 class="p-title">Biblioteca Costera</h3><span class="p-year">2025</span></div>
         </a>
 
         <a href="https://www.behance.net/gallery/232347839/Plano-Municipal-Profesional-%282024%29" target="_blank" class="project-card hover-trigger" data-category="tech">
-            <div class="image-container">
-                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/c5eb49232347839.689ac25a63221.jpg" alt="Planos" loading="lazy" decoding="async">
-            </div>
-            <div class="project-info">
-                <h3 class="p-title">Legajo Municipal</h3>
-                <span class="p-year">PRO</span>
-            </div>
+            <div class="image-container"><img src="planos.jpg" alt="Planos" loading="lazy" decoding="async"></div>
+            <div class="project-info"><h3 class="p-title">Legajo Municipal</h3><span class="p-year">PRO</span></div>
         </a>
 
         <a href="https://www.behance.net/gallery/232344061/INTERVENCION-URBANA-Proyecto-Acadmico-%282025%29" target="_blank" class="project-card hover-trigger" data-category="urb">
-            <div class="image-container">
-                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/02f691232344061.689aa6e222427.jpg" alt="Urbanismo" loading="lazy" decoding="async">
-            </div>
-            <div class="project-info">
-                <h3 class="p-title">Intervención Urbana</h3>
-                <span class="p-year">2025</span>
-            </div>
+            <div class="image-container"><img src="urbano.jpg" alt="Urbanismo" loading="lazy" decoding="async"></div>
+            <div class="project-info"><h3 class="p-title">Intervención Urbana</h3><span class="p-year">2025</span></div>
         </a>
 
         <a href="https://www.behance.net/gallery/232344485/CONJUNTO-HABITACIONAL-Proyecto-Acadmico-%282025%29" target="_blank" class="project-card hover-trigger" data-category="urb">
-            <div class="image-container">
-                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/8bc5a4232344485.689aaa72e3cef.jpg" alt="Vivienda Colectiva" loading="lazy" decoding="async">
-            </div>
-            <div class="project-info">
-                <h3 class="p-title">Conjunto Habitacional</h3>
-                <span class="p-year">2025</span>
-            </div>
+            <div class="image-container"><img src="conjunto.jpg" alt="Vivienda Colectiva" loading="lazy" decoding="async"></div>
+            <div class="project-info"><h3 class="p-title">Conjunto Habitacional</h3><span class="p-year">2025</span></div>
         </a>
 
         <a href="https://www.behance.net/gallery/232343769/IGLESIA-Proyecto-Acadmico-%282024%29" target="_blank" class="project-card hover-trigger" data-category="arq">
-            <div class="image-container">
-                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/bec6d3232343769.689aa47f6ed6d.jpg" alt="Iglesia" loading="lazy" decoding="async">
-            </div>
-            <div class="project-info">
-                <h3 class="p-title">Espacio Sacro</h3>
-                <span class="p-year">2024</span>
-            </div>
+            <div class="image-container"><img src="iglesia.jpg" alt="Iglesia" loading="lazy" decoding="async"></div>
+            <div class="project-info"><h3 class="p-title">Espacio Sacro</h3><span class="p-year">2024</span></div>
         </a>
 
     </main>
@@ -326,10 +332,10 @@
 
             <div class="img-comp-container">
                 <div class="img-comp-img">
-                    <img src="despues.jpg" width="100%"> 
+                    <img src="despues.jpg" alt="Final">
                 </div>
                 <div class="img-comp-img img-comp-overlay">
-                    <img src="antes.jpg" width="100%">
+                    <img src="antes.jpg" alt="Base">
                 </div>
             </div>
         </div>
@@ -339,10 +345,7 @@
         <div class="process-container">
             <div class="process-text">
                 <h2>SERVICIOS &<br>CAPACIDADES.</h2>
-                <p>
-                    Ofrezco soluciones integrales desde el concepto inicial hasta el legajo ejecutivo, adaptándome a las necesidades de estudios y clientes particulares.
-                </p>
-                
+                <p>Ofrezco soluciones integrales desde el concepto inicial hasta el legajo ejecutivo, adaptándome a las necesidades de estudios y clientes particulares.</p>
                 <div class="services-list">
                     <div class="service-item">Diseño Paramétrico</div>
                     <div class="service-item">Documentación Ejecutiva</div>
@@ -360,33 +363,23 @@
             <div class="lab-header">
                 <div class="lab-brand">
                     <img src="logo.jpg" alt="Logo EFELE" class="lab-logo-img" loading="lazy">
-                    <div class="lab-title">
-                        <h2>EFELE.ARQ</h2>
-                        <span>Laboratorio de investigación y diseño de IA</span>
-                    </div>
+                    <div class="lab-title"><h2>EFELE.ARQ</h2><span>Laboratorio de investigación y diseño de IA</span></div>
                 </div>
                 <a href="https://www.instagram.com/efele.arq" target="_blank" class="follow-btn hover-trigger">Seguir en Instagram</a>
             </div>
 
             <div class="lab-grid">
                 <a href="https://www.instagram.com/efele.arq" target="_blank" class="lab-item hover-trigger">
-                    <img src="insta1.jpg" alt="Fachada AI" loading="lazy" decoding="async">
-                    <div class="lab-overlay"><span>Render Exterior</span></div>
+                    <img src="insta1.jpg" alt="Fachada AI" loading="lazy"><div class="lab-overlay"><span>Render Exterior</span></div>
                 </a>
-
                 <a href="https://www.instagram.com/efele.arq" target="_blank" class="lab-item hover-trigger">
-                    <img src="insta2.jpg" alt="Interior AI" loading="lazy" decoding="async">
-                    <div class="lab-overlay"><span>Render Interior</span></div>
+                    <img src="insta2.jpg" alt="Interior AI" loading="lazy"><div class="lab-overlay"><span>Render Interior</span></div>
                 </a>
-
                 <a href="https://www.instagram.com/efele.arq" target="_blank" class="lab-item hover-trigger">
-                    <img src="insta3.jpg" alt="Proceso AI" loading="lazy" decoding="async">
-                    <div class="lab-overlay"><span>Remodelacion con IA</span></div>
+                    <img src="insta3.jpg" alt="Proceso AI" loading="lazy"><div class="lab-overlay"><span>Remodelacion con IA</span></div>
                 </a>
-                
                 <a href="https://www.instagram.com/efele.arq" target="_blank" class="lab-item hover-trigger">
-                    <img src="insta4.jpg" alt="Detalle" loading="lazy" decoding="async">
-                    <div class="lab-overlay"><span>Laminas Informativas</span></div>
+                    <img src="insta4.jpg" alt="Detalle" loading="lazy"><div class="lab-overlay"><span>Laminas Informativas</span></div>
                 </a>
             </div>
         </div>
@@ -398,16 +391,11 @@
     </footer>
 
     <script>
-        // 1. CURSOR
-        const cursor = document.getElementById('cursor');
-        const ring = document.getElementById('cursor-ring');
-        let mouseX = 0, mouseY = 0; let ringX = 0, ringY = 0; let isMoving = false;
-
+        // CURSOR
+        const cursor = document.getElementById('cursor'), ring = document.getElementById('cursor-ring');
+        let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0, isMoving = false;
         if (window.matchMedia('(pointer: fine)').matches) {
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX; mouseY = e.clientY;
-                if (!isMoving) { isMoving = true; requestAnimationFrame(animateCursor); }
-            });
+            document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; if (!isMoving) { isMoving = true; requestAnimationFrame(animateCursor); } });
             function animateCursor() {
                 cursor.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
                 ringX += (mouseX - ringX) * 0.15; ringY += (mouseY - ringY) * 0.15;
@@ -420,80 +408,73 @@
             });
         }
 
-        // 2. SCROLL REVEAL
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible'); observer.unobserve(entry.target); 
-                }
-            });
-        }, { threshold: 0.1 });
+        // SCROLL REVEAL
+        const observer = new IntersectionObserver(e => { e.forEach(n => { if (n.isIntersecting) { n.target.classList.add('visible'); observer.unobserve(n.target); } }) }, { threshold: 0.1 });
         document.querySelectorAll('.project-card').forEach(c => observer.observe(c));
 
-        // 3. FILTROS
+        // FILTROS
         function filterProjects(t) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
-            const cards = document.querySelectorAll('.project-card');
-            cards.forEach(c => {
-                if (t === 'all' || c.dataset.category === t) {
-                    c.style.display = 'block';
-                    requestAnimationFrame(() => { c.style.opacity = '1'; c.style.transform = 'translateY(0)'; });
-                } else {
-                    c.style.opacity = '0'; c.style.transform = 'translateY(20px)';
-                    setTimeout(() => c.style.display = 'none', 300);
-                }
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); event.target.classList.add('active');
+            document.querySelectorAll('.project-card').forEach(c => {
+                if (t === 'all' || c.dataset.category === t) { c.style.display = 'block'; requestAnimationFrame(() => { c.style.opacity = '1'; c.style.transform = 'translateY(0)'; }); } 
+                else { c.style.opacity = '0'; c.style.transform = 'translateY(20px)'; setTimeout(() => c.style.display = 'none', 300); }
             });
         }
 
-        // 4. LOGICA DEL SLIDER (ANTES/DESPUES) - CORREGIDA
+        // --- SLIDER LOGIC (SUPERPUESTO) ---
+        // Esperamos a que todo cargue para calcular tamaños
         window.addEventListener('load', function() {
-            initComparisons();
+            initSlider();
         });
 
-        function initComparisons() {
-            var x, i;
-            x = document.getElementsByClassName("img-comp-overlay");
-            for (i = 0; i < x.length; i++) {
-                compareImages(x[i]);
+        function initSlider() {
+            const overlay = document.querySelector('.img-comp-overlay');
+            const container = document.querySelector('.img-comp-container');
+            const imgTop = overlay.querySelector('img'); // Imagen de arriba (Antes)
+            const slider = document.createElement("DIV");
+            
+            // Forzamos que la imagen de arriba tenga el ANCHO TOTAL del contenedor, no del div recortado
+            // Esto es lo que hace que se vea "superpuesto" y no recortado
+            function syncSize() {
+                imgTop.style.width = container.offsetWidth + "px";
+                imgTop.style.height = container.offsetHeight + "px";
             }
-            function compareImages(img) {
-                var slider, clicked = 0, w, h;
-                w = img.offsetWidth; h = img.offsetHeight;
-                
-                // Corrección: Asegurar que la imagen tenga dimensiones antes de ejecutar
-                if (w === 0 || h === 0) {
-                    setTimeout(() => compareImages(img), 100); 
-                    return;
-                }
+            syncSize();
+            window.addEventListener('resize', syncSize); // Recalcular si cambian tamaño de ventana
 
-                img.style.width = (w / 2) + "px";
-                
-                slider = document.createElement("DIV");
-                slider.setAttribute("class", "img-comp-slider");
-                img.parentElement.insertBefore(slider, img);
-                
-                slider.style.top = (h / 2) - (slider.offsetHeight / 2) + "px";
-                slider.style.left = (w / 2) - (slider.offsetWidth / 2) + "px";
-                
-                slider.addEventListener("mousedown", slideReady);
-                window.addEventListener("mouseup", slideFinish);
-                slider.addEventListener("touchstart", slideReady);
-                window.addEventListener("touchend", slideFinish);
-                
-                function slideReady(e) { e.preventDefault(); clicked = 1; window.addEventListener("mousemove", slideMove); window.addEventListener("touchmove", slideMove); }
-                function slideFinish() { clicked = 0; }
-                function slideMove(e) {
-                    var pos; if (clicked == 0) return false;
-                    pos = getCursorPos(e);
-                    if (pos < 0) pos = 0; if (pos > w) pos = w;
-                    slide(pos);
-                }
-                function getCursorPos(e) {
-                    var a, x = 0; e = (e.changedTouches) ? e.changedTouches[0] : e;
-                    a = img.getBoundingClientRect(); x = e.pageX - a.left; x = x - window.pageXOffset; return x;
-                }
-                function slide(x) { img.style.width = x + "px"; slider.style.left = img.offsetWidth - (slider.offsetWidth / 2) + "px"; }
+            // Crear Botón
+            slider.setAttribute("class", "img-comp-slider");
+            container.insertBefore(slider, overlay);
+            
+            // Centrar botón inicial
+            slider.style.top = "50%";
+            slider.style.left = "50%";
+            overlay.style.width = "50%";
+
+            // Eventos Mouse/Touch
+            let clicked = 0;
+            slider.addEventListener("mousedown", slideReady);
+            window.addEventListener("mouseup", slideFinish);
+            slider.addEventListener("touchstart", slideReady);
+            window.addEventListener("touchend", slideFinish);
+
+            function slideReady(e) { e.preventDefault(); clicked = 1; window.addEventListener("mousemove", slideMove); window.addEventListener("touchmove", slideMove); }
+            function slideFinish() { clicked = 0; }
+            function slideMove(e) {
+                if (clicked == 0) return false;
+                let pos = getCursorPos(e);
+                if (pos < 0) pos = 0;
+                if (pos > container.offsetWidth) pos = container.offsetWidth;
+                slide(pos);
+            }
+            function getCursorPos(e) {
+                let a = container.getBoundingClientRect();
+                let x = (e.changedTouches ? e.changedTouches[0] : e).pageX - a.left - window.pageXOffset;
+                return x;
+            }
+            function slide(x) {
+                overlay.style.width = x + "px";
+                slider.style.left = x + "px";
             }
         }
     </script>
