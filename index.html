@@ -6,8 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:;">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
     
     <title>Facundo Luna | Arq & AI</title>
     
@@ -17,7 +18,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- 1. CONFIGURACIÓN VISUAL --- */
+        /* --- ESTILOS VISUALES (OPTIMIZADOS) --- */
         :root {
             --bg-color: #ffffff;
             --text-main: #000000;
@@ -33,127 +34,62 @@
         
         body { 
             font-family: var(--font-main); background: var(--bg-color); color: var(--text-main); 
-            overflow-x: hidden; /* Evita scroll horizontal */
-            -webkit-font-smoothing: antialiased;
-            /* Permitimos selección normal en móvil para que no se sienta "roto", pero protegemos imágenes abajo */
+            overflow-x: hidden; -webkit-font-smoothing: antialiased;
+            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+            -webkit-touch-callout: none;
         }
         
-        * { margin: 0; padding: 0; box-sizing: border-box; } /* Quitamos cursor:none global para evitar errores en móvil */
-        
-        a { text-decoration: none; color: inherit; cursor: pointer; }
-        img { max-width: 100%; display: block; height: auto; pointer-events: none; -webkit-user-drag: none; }
+        img { pointer-events: none; -webkit-user-drag: none; user-select: none; }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        a { text-decoration: none; color: inherit; cursor: none; }
+        img { max-width: 100%; display: block; height: auto; }
 
-        /* --- 2. CURSOR PERSONALIZADO (SOLO PC) --- */
         @media (pointer: fine) {
-            * { cursor: none; } /* Solo ocultamos cursor en PC */
-            #cursor {
-                position: fixed; top: 0; left: 0; 
-                width: 12px; height: 12px; 
-                background: var(--accent); border-radius: 50%; 
-                mix-blend-mode: multiply; pointer-events: none; z-index: 9999;
-                transform: translate3d(-50%, -50%, 0); will-change: transform; 
-            }
+            #cursor { position: fixed; top: 0; left: 0; width: 12px; height: 12px; background: var(--accent); border-radius: 50%; mix-blend-mode: multiply; pointer-events: none; z-index: 9999; transform: translate3d(-50%, -50%, 0); will-change: transform; }
             body.hover-active #cursor { transform: translate3d(-50%, -50%, 0) scale(2.5); opacity: 0.5; }
         }
 
-        /* --- 3. NAV --- */
-        nav { 
-            position: fixed; top: 0; width: 100%; padding: 15px 50px; 
-            display: flex; justify-content: space-between; align-items: center; 
-            background: rgba(255, 255, 255, 0.98); 
-            z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
+        nav { position: fixed; top: 0; width: 100%; padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.98); z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); }
         .logo { font-family: var(--font-tech); font-weight: 700; font-size: 1.2rem; letter-spacing: -1px; text-transform: uppercase; }
         .social-links { display: flex; align-items: center; }
         .social-links a { font-family: var(--font-tech); font-size: 0.85rem; margin-left: 25px; font-weight: 600; text-transform: uppercase; transition: color 0.3s; }
         .social-links a:hover { color: var(--accent); }
 
-        .cv-button {
-            border: 1px solid var(--text-main); padding: 8px 20px; border-radius: 50px;
-            display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s ease;
-        }
-        .cv-button:hover { background: var(--text-main); color: white !important; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-
-        /* --- 4. HERO --- */
         header { padding: 160px 50px 40px; max-width: 1400px; margin: 0 auto; }
-        h1 { 
-            font-family: var(--font-heading); font-size: 7vw; font-weight: 900; 
-            line-height: 0.9; margin-bottom: 30px; letter-spacing: -3px; 
-            opacity: 0; animation: slideIn 0.8s ease forwards;
-        }
+        h1 { font-family: var(--font-heading); font-size: 7vw; font-weight: 900; line-height: 0.9; margin-bottom: 30px; letter-spacing: -3px; opacity: 0; animation: slideIn 0.8s ease forwards; }
         .subtitle-group { border-left: 3px solid var(--accent); padding-left: 25px; margin-top: 30px; opacity: 0; animation: slideIn 0.8s ease 0.2s forwards; }
         .bio { font-size: 1.15rem; color: var(--text-secondary); max-width: 550px; line-height: 1.6; }
-
-        .stack-bar {
-            margin-top: 45px; padding-top: 20px; border-top: 1px solid #eee;
-            display: flex; align-items: center; gap: 20px; flex-wrap: wrap; 
-            opacity: 0; animation: slideIn 0.8s ease 0.4s forwards;
-        }
+        .stack-bar { margin-top: 45px; padding-top: 20px; border-top: 1px solid #eee; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; opacity: 0; animation: slideIn 0.8s ease 0.4s forwards; }
         .stack-label { font-family: var(--font-tech); font-size: 0.75rem; font-weight: 700; color: #bbb; text-transform: uppercase; letter-spacing: 1px; }
         .stack-icons { display: flex; gap: 25px; flex-wrap: wrap; }
-        .stack-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); }
+        .stack-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); transition: 0.3s; }
         .stack-item i { color: var(--accent); font-size: 1rem; }
-
         .filters { display: flex; gap: 10px; margin-top: 40px; flex-wrap: wrap; }
-        .filter-btn { 
-            border: 1px solid #e0e0e0; background: transparent; 
-            font-family: var(--font-tech); font-size: 0.8rem; text-transform: uppercase; 
-            padding: 8px 20px; font-weight: 700; transition: all 0.3s; color: #888; cursor: pointer;
-        }
+        .filter-btn { border: 1px solid #e0e0e0; background: transparent; font-family: var(--font-tech); font-size: 0.8rem; text-transform: uppercase; padding: 8px 20px; font-weight: 700; transition: all 0.3s; color: #888; cursor: none; }
         .filter-btn.active, .filter-btn:hover { background: var(--text-main); color: white; border-color: var(--text-main); }
 
-        /* --- 5. GRID --- */
-        .portfolio-grid { 
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); 
-            gap: 40px; max-width: 1400px; margin: 0 auto; padding: 0 50px 100px; 
-        }
-        .project-card { 
-            opacity: 0; transform: translateY(30px); transition: opacity 0.5s ease, transform 0.5s ease; 
-            display: block; content-visibility: auto;
-        }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 40px; max-width: 1400px; margin: 0 auto; padding: 0 50px 100px; }
+        .project-card { opacity: 0; transform: translateY(30px); transition: opacity 0.5s ease, transform 0.5s ease; display: block; content-visibility: auto; }
         .project-card.visible { opacity: 1; transform: translateY(0); }
-        
         .image-container { position: relative; overflow: hidden; aspect-ratio: 16/10; background: #f4f4f4; }
-        .image-container img { 
-            width: 100%; height: 100%; object-fit: cover; 
-            transition: transform 0.6s ease, filter 0.6s ease; 
-            filter: grayscale(100%); will-change: transform, filter; transform: translateZ(0);
-        }
+        .image-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease, filter 0.6s ease; filter: grayscale(100%); will-change: transform, filter; transform: translateZ(0); }
         .project-card:hover img { transform: scale(1.03); filter: grayscale(0%); }
-        
         .project-info { margin-top: 15px; display: flex; justify-content: space-between; border-bottom: 2px solid transparent; padding-bottom: 10px; transition: border-color 0.3s;}
         .project-card:hover .project-info { border-bottom-color: var(--accent); }
         .p-title { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 800; line-height: 1; text-transform: uppercase; }
         .p-year { font-family: var(--font-tech); font-weight: 700; color: var(--accent); }
 
-        /* --- 6. SLIDER --- */
         .comparison-section { padding: 100px 50px; background: #fff; }
         .comp-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.5fr; gap: 50px; align-items: center; }
         .comp-text h2 { font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 20px; line-height: 1; }
         .comp-label { font-family: var(--font-tech); font-weight: 700; color: var(--accent); font-size: 0.8rem; letter-spacing: 1px; margin-top: 20px; display: block; }
-        
-        .comparison-wrapper {
-            position: relative; width: 100%; height: 500px; overflow: hidden;
-            border-radius: 12px; cursor: ew-resize; box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            touch-action: none; /* CLAVE: Evita scroll del navegador SOLO dentro del slider */
-        }
+        .comparison-wrapper { position: relative; width: 100%; height: 500px; overflow: hidden; border-radius: 12px; cursor: ew-resize; box-shadow: 0 20px 40px rgba(0,0,0,0.1); touch-action: none; }
         .comp-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
         .img-fore { z-index: 2; clip-path: inset(0 50% 0 0); will-change: clip-path; }
         .img-back { z-index: 1; }
+        .slider-handle { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: white; z-index: 10; transform: translateX(-50%); pointer-events: none; will-change: left; }
+        .slider-circle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 44px; height: 44px; background: var(--accent); color: white; border-radius: 50%; border: 3px solid white; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
 
-        .slider-handle {
-            position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: white;
-            z-index: 10; transform: translateX(-50%); pointer-events: none; will-change: left;
-        }
-        .slider-circle {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 44px; height: 44px; background: var(--accent); color: white;
-            border-radius: 50%; border: 3px solid white;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
-        /* --- 7. EXTRAS --- */
         .tech-process-section { background: var(--light-gray); padding: 80px 50px; }
         .process-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 40px; text-align: center; }
         .process-text h2 { font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 20px; line-height: 1; letter-spacing: -1px; }
@@ -182,15 +118,11 @@
         footer h2 { font-family: var(--font-heading); font-size: 4rem; margin-bottom: 20px; line-height: 1; letter-spacing: -2px; }
         .credits { font-size: 0.85rem; color: #666; margin-top: 60px; display: flex; justify-content: space-between; border-top: 1px solid #222; padding-top: 20px; }
 
-        /* RESPONSIVE */
         @media (max-width: 768px) {
-            * { cursor: auto !important; } /* Restablecer cursor nativo en móvil */
-            #cursor { display: none; } /* Ocultar el div del cursor en móvil */
-            
-            h1 { font-size: 13vw; } 
-            nav { padding: 20px; }
+            * { cursor: auto !important; }
+            #cursor { display: none; }
+            h1 { font-size: 13vw; } nav { padding: 20px; }
             .social-links { display: none; }
-            .cv-button { position: absolute; top: 20px; right: 20px; font-size: 0.75rem; padding: 6px 15px; display: flex; }
             header { padding: 120px 20px 40px; }
             .stack-bar { flex-direction: column; align-items: flex-start; gap: 15px; }
             .comp-container { grid-template-columns: 1fr; } 
@@ -217,7 +149,6 @@
         <div class="social-links">
             <a href="mailto:facundoluna182@gmail.com" class="hover-trigger">Contact</a>
             <a href="https://www.instagram.com/efele.arq" target="_blank" rel="noopener noreferrer" class="hover-trigger">Instagram</a>
-            <a href="cv.pdf" download class="cv-button hover-trigger"><i class="fa-solid fa-download"></i> CV</a>
         </div>
     </nav>
 
@@ -387,25 +318,19 @@
             });
         }
 
-        // 4. SLIDER - ARREGLADO PARA MÓVIL (Sin preventDefault global)
+        // 4. SLIDER - ARREGLADO PARA MÓVIL
         const container = document.getElementById('comparison-slider');
         const foregroundImg = container.querySelector('.img-fore');
         const sliderHandle = container.querySelector('.slider-handle');
         let isDragging = false;
 
         function updateSlider(e) {
-            // Solo prevenimos scroll si ESTAMOS arrastrando activamente
             if (!isDragging) return;
-            
-            // Si está arrastrando, SÍ bloqueamos el scroll para que sea fluido
             e.preventDefault(); 
-            
             const rect = container.getBoundingClientRect();
             let pageX = e.touches ? e.touches[0].clientX : e.clientX;
             let x = pageX - rect.left;
-            
             if (x < 0) x = 0; if (x > rect.width) x = rect.width;
-            
             let percentage = (x / rect.width) * 100;
             sliderHandle.style.left = percentage + "%";
             foregroundImg.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
@@ -417,9 +342,7 @@
         
         container.addEventListener('touchstart', (e) => { isDragging = true; updateSlider(e); });
         window.addEventListener('touchend', () => isDragging = false);
-        // Passive false es crucial para poder usar preventDefault dentro
         window.addEventListener('touchmove', updateSlider, { passive: false });
     </script>
 </body>
 </html>
-
