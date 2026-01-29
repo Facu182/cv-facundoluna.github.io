@@ -3,594 +3,387 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facundo Luna - Portafolio de Arquitectura</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>Facundo Luna | Arq & AI</title>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Montserrat:wght@400;700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
+        /* --- 1. VARIABLES --- */
         :root {
-            --bg-sidebar: #121212;
-            --text-sidebar: #e0e0e0;
-            --bg-main: #ffffff;
-            --text-main: #333333;
-            --accent: #00ADB5; /* Cian moderno */
-            --gray-light: #f4f4f4;
-            --border: #e0e0e0;
+            --bg-color: #ffffff;
+            --text-main: #000000;
+            --text-secondary: #666666;
+            --accent: #008C95; /* Tu Cian EFELE */
+            --glass: rgba(255, 255, 255, 0.95);
+            --font-main: 'Inter', sans-serif;
+            --font-heading: 'Montserrat', sans-serif;
+            --font-tech: 'Space Grotesk', sans-serif;
         }
 
-        html {
-            scroll-behavior: smooth; /* Desplazamiento suave al hacer click en anclas */
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; /* Cursor custom en PC */ }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--gray-light);
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
             color: var(--text-main);
-            line-height: 1.6;
-            font-size: 14px;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden; /* Evita scroll horizontal indeseado */
+            overflow-x: hidden;
         }
 
-        /* --- CONTENEDOR PRINCIPAL --- */
-        .cv-container {
-            max-width: 1250px;
-            margin: 40px auto;
-            background: white;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            min-height: 100vh;
-            opacity: 0; /* Para animación de carga inicial */
-            animation: fadeInPage 1s ease-out forwards;
-        }
+        a { text-decoration: none; color: inherit; cursor: none; }
+        img { max-width: 100%; display: block; }
 
-        @keyframes fadeInPage {
-            to { opacity: 1; }
-        }
-
-        /* --- SIDEBAR --- */
-        aside {
-            background-color: var(--bg-sidebar);
-            color: var(--text-sidebar);
-            padding: 40px 25px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .photo-container {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 25px auto;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 3px solid var(--accent);
-            box-shadow: 0 0 20px rgba(0, 173, 181, 0.3);
-            transition: transform 0.5s ease;
-        }
-        
-        .photo-container:hover {
-            transform: scale(1.05);
-        }
-
-        .photo-container img { width: 100%; height: 100%; object-fit: cover; }
-
-        aside h3 {
-            color: white;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-top: 35px;
-            margin-bottom: 15px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 5px;
-        }
-        aside h3:first-of-type { margin-top: 10px; }
-
-        .skill-category-title {
-            font-size: 0.75rem;
-            color: #888;
-            margin: 15px 0 5px 0;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Contacto */
-        .contact-list { list-style: none; margin-bottom: 30px; }
-        .contact-list li { margin-bottom: 12px; display: flex; align-items: center; font-size: 0.85rem; }
-        .contact-list i { width: 25px; color: var(--accent); margin-right: 5px; transition: transform 0.3s;}
-        
-        .contact-list a {
-            color: var(--text-sidebar);
-            text-decoration: none;
-            transition: color 0.3s;
-            display: flex;
-            align-items: center;
-        }
-        .contact-list a:hover { color: var(--accent); }
-        .contact-list a:hover i { transform: scale(1.2); }
-
-        .portfolio-btn {
-            display: block;
-            background: transparent;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            text-align: center;
-            padding: 10px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 20px;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .portfolio-btn::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 0%; height: 100%;
-            background: var(--accent);
-            z-index: -1;
-            transition: width 0.3s ease;
-        }
-
-        .portfolio-btn:hover { color: white; box-shadow: 0 5px 15px rgba(0, 173, 181, 0.4); }
-        .portfolio-btn:hover::before { width: 100%; }
-
-        /* Skills Visuales */
-        .skill-group { margin-bottom: 10px; }
-        .skill-label { display: flex; justify-content: space-between; margin-bottom: 3px; font-size: 0.8rem; }
-        .skill-bar-bg { background: rgba(255,255,255,0.1); height: 4px; border-radius: 2px; overflow: hidden; }
-        
-        .skill-bar-fill { 
-            height: 100%; 
-            background: var(--accent); 
-            width: 0; /* Inicialmente 0 para la animación JS */
-            transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .tech-list { font-size: 0.85rem; color: #ccc; list-style: none; padding: 0;}
-        .tech-list li { margin-bottom: 5px; display: flex; align-items: start; }
-        .tech-list li::before { content: '▸'; color: var(--accent); margin-right: 8px; }
-
-        /* --- MAIN CONTENT --- */
-        main { padding: 50px; background-color: white; }
-
-        /* Clase de animación scroll */
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-            will-change: opacity, transform;
-        }
-        
-        .fade-in-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .header-main { margin-bottom: 40px; border-bottom: 1px solid #eee; padding-bottom: 30px;}
-        h1 {
-            font-size: 3.8rem;
-            font-weight: 900;
-            color: #222;
-            line-height: 0.9;
-            margin-bottom: 10px;
-            letter-spacing: -2px;
-            text-transform: uppercase;
-        }
-        .subtitle { font-size: 1.1rem; color: var(--accent); font-weight: 600; letter-spacing: 0.5px; }
-
-        .section-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #222;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            text-transform: uppercase;
-            letter-spacing: -0.5px;
-            margin-top: 40px;
-        }
-        .section-title::after { content: ''; flex-grow: 1; height: 2px; background: #eee; margin-left: 20px; }
-
-        .profile-text { color: #555; margin-bottom: 20px; font-size: 1.05rem; max-width: 800px; text-align: justify; }
-
-        /* Timeline */
-        .timeline-box {
-            position: relative;
-            padding-left: 25px;
-            margin-bottom: 30px;
-            border-left: 2px solid #eee;
-            page-break-inside: avoid; 
-            transition: border-left-color 0.3s;
-        }
-        .timeline-box:hover { border-left-color: var(--accent); }
-
-        .timeline-box::before {
-            content: ''; position: absolute; left: -6px; top: 0;
-            width: 10px; height: 10px; background: var(--accent); border-radius: 50%;
-            transition: transform 0.3s;
-        }
-        .timeline-box:hover::before { transform: scale(1.3); }
-
-        .timeline-year { font-size: 0.8rem; color: #999; font-weight: 700; margin-bottom: 4px; display: block; }
-        .timeline-title { font-size: 1.15rem; font-weight: 700; color: #333; margin-bottom: 2px;}
-        .timeline-subtitle { font-size: 0.95rem; color: var(--accent); font-weight: 500; margin-bottom: 8px; }
-        
-        .timeline-details { list-style: none; padding: 0; }
-        .timeline-details li { 
-            position: relative; padding-left: 15px; margin-bottom: 4px; font-size: 0.9rem; color: #555; 
-        }
-        .timeline-details li::before {
-            content: "•"; position: absolute; left: 0; color: var(--accent); font-weight: bold;
-        }
-
-        /* --- GALERÍA PROYECTOS --- */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
-
-        .project-card {
-            display: flex;
-            flex-direction: column;
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efecto rebote sutil */
-            border: 1px solid #eee;
-            height: 100%;
-            page-break-inside: avoid;
-        }
-
-        .project-card:hover {
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-            border-color: var(--accent);
-        }
-
-        .project-image-container {
-            width: 100%;
-            height: 180px;
-            overflow: hidden;
-            position: relative;
-            background: #eee;
-        }
-
-        .project-image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.8s ease, filter 0.5s ease;
-        }
-
-        .project-card:hover .project-image-container img { 
-            transform: scale(1.1); 
-            filter: brightness(1.05) saturate(1.1);
-        }
-
-        .project-info { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-        .p-title { font-weight: 800; font-size: 1.1rem; margin-bottom: 5px; color: #222; }
-        .p-year { font-size: 0.75rem; color: var(--accent); font-weight: 700; text-transform: uppercase; margin-bottom: 12px; display: block;}
-        
-        .p-desc { list-style: none; padding: 0; margin-top: auto; }
-        .p-desc li {
-            font-size: 0.85rem; color: #666; margin-bottom: 6px; padding-left: 12px; position: relative; line-height: 1.4;
-        }
-        .p-desc li::before {
-            content: "›"; position: absolute; left: 0; color: var(--accent); font-weight: bold; font-size: 1.1em; line-height: 1;
-        }
-
-        /* MEDIA QUERIES */
-        @media (max-width: 900px) {
-            .cv-container {
-                grid-template-columns: 1fr;
-                margin: 20px;
-                width: auto;
+        /* --- 2. CURSOR CUSTOM (Solo PC) --- */
+        @media (pointer: fine) {
+            #cursor {
+                position: fixed; width: 12px; height: 12px;
+                background: var(--accent); border-radius: 50%;
+                pointer-events: none; transform: translate(-50%, -50%);
+                z-index: 9999; transition: transform 0.1s; mix-blend-mode: multiply;
             }
-            aside { text-align: center; padding: 30px 20px; }
-            .contact-list li, .tech-list li, .skill-label { justify-content: center; }
-            .contact-list a { justify-content: center; }
-            main { padding: 30px 25px; }
-            h1 { font-size: 3rem; }
+            #cursor-ring {
+                position: fixed; width: 40px; height: 40px;
+                border: 1px solid #ccc; border-radius: 50%;
+                pointer-events: none; transform: translate(-50%, -50%);
+                z-index: 9998; transition: all 0.15s ease-out;
+            }
+            .hover-active #cursor { transform: translate(-50%, -50%) scale(0.5); }
+            .hover-active #cursor-ring { width: 60px; height: 60px; border-color: var(--accent); border-width: 2px; }
         }
 
-        @media (max-width: 480px) {
-            .cv-container { margin: 0; box-shadow: none; }
-            h1 { font-size: 2.5rem; letter-spacing: -1px; }
-            .subtitle { font-size: 1rem; }
-            main { padding: 25px 20px; }
-            aside { padding: 30px 20px; }
-            .project-image-container { height: 160px; }
+        /* --- 3. NAV --- */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 25px 50px;
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--glass); backdrop-filter: blur(10px); z-index: 100;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .logo { font-family: var(--font-tech); font-weight: 700; font-size: 1.2rem; letter-spacing: -1px; text-transform: uppercase; }
+        .social-links a { font-family: var(--font-tech); font-size: 0.85rem; margin-left: 20px; font-weight: 600; text-transform: uppercase; }
+
+        /* --- 4. HERO --- */
+        header { padding: 180px 50px 60px; max-width: 1400px; margin: 0 auto; }
+        h1 {
+            font-family: var(--font-heading); font-size: 7vw; font-weight: 900;
+            line-height: 0.9; margin-bottom: 30px; letter-spacing: -3px;
+            opacity: 0; animation: slideIn 0.8s ease 0.2s forwards;
+        }
+        .subtitle-group { border-left: 3px solid var(--accent); padding-left: 25px; margin-top: 30px; opacity: 0; animation: slideIn 0.8s ease 0.4s forwards; }
+        .bio { font-size: 1.1rem; color: var(--text-secondary); max-width: 500px; line-height: 1.6; }
+
+        /* FILTROS */
+        .filters { display: flex; gap: 10px; margin-top: 40px; flex-wrap: wrap; }
+        .filter-btn {
+            border: 1px solid #e0e0e0; background: transparent;
+            font-family: var(--font-tech); font-size: 0.8rem; text-transform: uppercase;
+            padding: 8px 20px; font-weight: 700; transition: all 0.3s; color: #888;
+        }
+        .filter-btn.active, .filter-btn:hover { background: var(--text-main); color: white; border-color: var(--text-main); }
+
+        /* --- 5. PORTFOLIO GRID (PC) --- */
+        .portfolio-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 30px; max-width: 1400px; margin: 0 auto; padding: 0 50px 100px;
+        }
+        .project-card { opacity: 0; transform: translateY(30px); transition: all 0.5s; display: block; }
+        .project-card.visible { opacity: 1; transform: translateY(0); }
+        
+        .image-container { position: relative; overflow: hidden; aspect-ratio: 16/10; background: #f4f4f4; }
+        .image-container img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; filter: grayscale(100%); }
+        .project-card:hover img { transform: scale(1.05); filter: grayscale(0%); }
+
+        .project-info { margin-top: 15px; display: flex; justify-content: space-between; border-bottom: 2px solid transparent; padding-bottom: 10px; }
+        .project-card:hover .project-info { border-bottom-color: var(--accent); }
+        .p-title { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 800; line-height: 1; text-transform: uppercase; }
+        .p-year { font-family: var(--font-tech); font-weight: 700; color: var(--accent); }
+
+        /* --- 6. AI LAB SECTION (@efele.arq) --- */
+        .ai-lab-section {
+            background: #050505; color: white; padding: 80px 50px;
+        }
+        
+        .lab-container { max-width: 1400px; margin: 0 auto; }
+        
+        .lab-header { 
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px; border-bottom: 1px solid #333; padding-bottom: 30px;
         }
 
-        /* IMPRESIÓN (Limpia, sin animaciones) */
-        @media print {
-            body { background-color: white; color: black; }
-            .cv-container { box-shadow: none; margin: 0; display: block; border: none; animation: none; opacity: 1; }
-            aside { background-color: white; color: black; border-bottom: 2px solid #333; padding: 0; margin-bottom: 20px; text-align: left; }
-            aside h3, .skill-category-title, .tech-list, .contact-list a, .skill-label { color: black !important; justify-content: flex-start; }
-            .tech-list li::before { color: #333; }
-            .skill-bar-bg { background: #eee !important; -webkit-print-color-adjust: exact; }
-            .skill-bar-fill { background: #555 !important; -webkit-print-color-adjust: exact; width: auto !important; }
-            .portfolio-btn { display: none; }
-            main { padding: 0; }
-            .header-main { border-bottom: 2px solid #333; }
-            h1 { color: black; margin-top: 0; }
-            .timeline-box { border-left-color: #333; }
-            .timeline-box::before, .timeline-details li::before { background-color: #333; color: #333; -webkit-print-color-adjust: exact; }
-            .projects-grid { display: block; }
-            .project-card { box-shadow: none; border: 1px solid #ccc; margin-bottom: 20px; page-break-inside: avoid; transform: none !important; }
-            .project-image-container { height: auto; max-height: 250px; }
-            .project-image-container img { position: static; height: auto; transform: none !important; }
-            .fade-in-up { opacity: 1 !important; transform: none !important; }
+        .lab-brand { display: flex; align-items: center; gap: 20px; }
+        
+        /* LOGO ESTILO INSTAGRAM */
+        .lab-logo-img {
+            width: 80px; height: 80px; border-radius: 50%; object-fit: cover;
+            border: 2px solid var(--accent); padding: 3px; background: black;
         }
+
+        .lab-title h2 { font-family: var(--font-tech); font-size: 2rem; margin: 0; }
+        .lab-title span { color: var(--accent); font-size: 1rem; font-weight: 400; display: block; margin-top: 5px; }
+        
+        .follow-btn {
+            background: var(--accent); color: white; padding: 10px 25px;
+            font-family: var(--font-tech); font-weight: 700; text-transform: uppercase;
+            font-size: 0.8rem; border-radius: 4px; transition: 0.3s;
+        }
+        .follow-btn:hover { background: white; color: black; }
+
+        /* GRID PARA PC */
+        .lab-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px;
+        }
+
+        .lab-item { 
+            position: relative; aspect-ratio: 1/1; overflow: hidden; background: #222; cursor: pointer;
+        }
+        .lab-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; opacity: 0.8; }
+        .lab-overlay {
+            position: absolute; inset: 0; background: rgba(0, 140, 149, 0.9);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            opacity: 0; transition: 0.3s; transform: translateY(20px);
+        }
+        .lab-item:hover img { opacity: 0.4; transform: scale(1.1); }
+        .lab-item:hover .lab-overlay { opacity: 1; transform: translateY(0); }
+
+        /* --- 7. RESPONSIVE (MÓVIL) --- */
+        @media (max-width: 768px) {
+            /* GENERAL */
+            * { cursor: auto !important; } /* Adiós cursor custom */
+            h1 { font-size: 13vw; }
+            nav { padding: 20px; }
+            .social-links { display: none; }
+            header { padding: 120px 20px 40px; }
+            .portfolio-grid { padding: 0 20px 60px; grid-template-columns: 1fr; gap: 40px; }
+            
+            /* Ajustes Card Móvil */
+            .image-container img { filter: grayscale(0%); } /* Color siempre activo */
+            .project-info { border-bottom: 1px solid #eee; }
+
+            /* AI LAB MÓVIL (Transformación a Carrusel) */
+            .ai-lab-section { padding: 40px 20px; }
+            .lab-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .lab-logo-img { width: 60px; height: 60px; }
+            
+            .lab-grid {
+                display: flex; /* Flexbox para scroll horizontal */
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                gap: 15px;
+                padding-bottom: 20px;
+                -webkit-overflow-scrolling: touch; /* Suavidad en iOS */
+            }
+
+            .lab-item {
+                flex: 0 0 85%; /* El item ocupa el 85% del ancho de la pantalla */
+                scroll-snap-align: center;
+                border-radius: 8px;
+            }
+
+            .lab-overlay {
+                /* En móvil, el texto va siempre visible abajo o con gradiente */
+                opacity: 1; transform: none; background: linear-gradient(to top, black, transparent);
+                justify-content: flex-end; padding-bottom: 20px; align-items: flex-start; padding-left: 20px;
+            }
+        }
+
+        /* --- 8. FOOTER --- */
+        footer { background: #000; color: #fff; padding: 60px 50px; border-top: 1px solid #333; }
+        footer h2 { font-family: var(--font-heading); font-size: 3rem; margin-bottom: 10px; }
+        .credits { font-size: 0.8rem; color: #666; margin-top: 40px; display: flex; justify-content: space-between; }
+
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
     </style>
 </head>
-<body>
+<body class="hover-active-wrap">
 
-    <div class="cv-container">
-        <aside>
-            <div class="photo-container">
-                <img src="https://i.postimg.cc/LsLVGmQ2/20250811-005222.jpg" alt="Facundo Luna" loading="lazy">
+    <div id="cursor"></div>
+    <div id="cursor-ring"></div>
+
+    <nav>
+        <div class="logo">FL <span style="color:var(--accent)">//</span> 2026</div>
+        <div class="social-links">
+            <a href="mailto:facundoluna182@gmail.com" class="hover-trigger">Contact</a>
+            <a href="https://www.instagram.com/efele.arq" target="_blank" class="hover-trigger">Instagram</a>
+        </div>
+    </nav>
+
+    <header>
+        <h1>Facundo<br>Luna<span style="color:var(--accent)">.</span></h1>
+        <div class="subtitle-group">
+            <p class="bio">
+                Arquitectura (FADU UBA) + Inteligencia Artificial.<br>
+                Fusionando lo técnico con lo generativo.
+            </p>
+            <div class="filters">
+                <button class="filter-btn active hover-trigger" onclick="filterProjects('all')">Todo</button>
+                <button class="filter-btn hover-trigger" onclick="filterProjects('arq')">Arquitectura</button>
+                <button class="filter-btn hover-trigger" onclick="filterProjects('tech')">Técnico</button>
+                <button class="filter-btn hover-trigger" onclick="filterProjects('urb')">Urbanismo</button>
             </div>
+        </div>
+    </header>
 
-            <h3>Contacto</h3>
-            <ul class="contact-list">
-                <li><i class="fas fa-map-marker-alt"></i> Buenos Aires, Argentina</li>
-                <li>
-                    <a href="https://wa.me/541123373832" target="_blank">
-                        <i class="fab fa-whatsapp"></i> +54 11 2337-3832
-                    </a>
-                </li>
-                <li>
-                    <a href="mailto:facundoluna182@gmail.com">
-                        <i class="fas fa-envelope"></i> facundoluna182@gmail.com
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.behance.net/facundoluna7" target="_blank" class="portfolio-btn">
-                        VER PORTAFOLIO
-                    </a>
-                </li>
-            </ul>
-
-            <div class="fade-in-up">
-                <h3>Tecnologías Innovadoras</h3>
-                <ul class="tech-list">
-                    <li>Visualización 360° y recorridos virtuales</li>
-                    <li>Implementación de IA generativa en diseño</li>
-                    <li>Optimización de procesos con IA</li>
-                </ul>
+    <main class="portfolio-grid">
+        
+        <a href="https://www.behance.net/gallery/232345049/VIVIENDA-UNIFAMILIA-Proyecto-Acadmico-%282024%29" target="_blank" class="project-card hover-trigger" data-category="arq">
+            <div class="image-container">
+                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/0f577a232345049.689aaf95bb01d.png" alt="Vivienda">
             </div>
-
-            <h3>Habilidades Técnicas</h3>
-            
-            <div class="skill-category-title">CAD & 2D</div>
-            <div class="skill-group"><div class="skill-label"><span>AutoCAD</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="100%"></div></div></div>
-            <div class="skill-group"><div class="skill-label"><span>Corel Draw</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="70%"></div></div></div>
-
-            <div class="skill-category-title">Modelado 3D & BIM</div>
-            <div class="skill-group"><div class="skill-label"><span>SketchUp</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="90%"></div></div></div>
-            <div class="skill-group"><div class="skill-label"><span>Rhino</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="70%"></div></div></div>
-            <div class="skill-group"><div class="skill-label"><span>Revit</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="65%"></div></div></div>
-            <div class="skill-group"><div class="skill-label"><span>Archicad</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="65%"></div></div></div>
-
-            <div class="skill-category-title">Renderizado</div>
-            <div class="skill-group"><div class="skill-label"><span>Twinmotion</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="100%"></div></div></div>
-
-            <div class="skill-category-title">Edición Multimedia</div>
-            <div class="skill-group"><div class="skill-label"><span>Photoshop</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="100%"></div></div></div>
-            <div class="skill-group"><div class="skill-label"><span>Premiere</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="65%"></div></div></div>
-            <div class="skill-group"><div class="skill-label"><span>Canva</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="100%"></div></div></div>
-            
-            <div class="fade-in-up">
-                <h3>Idiomas</h3>
-                <div class="skill-group">
-                    <div class="skill-label"><span>Español</span> <span>Nativo</span></div>
-                </div>
-                <div class="skill-group">
-                    <div class="skill-label"><span>Inglés</span> <span>Técnico (Lectura/Escritura)</span></div>
-                </div>
+            <div class="project-info">
+                <h3 class="p-title">Vivienda Unifamiliar</h3>
+                <span class="p-year">2024</span>
             </div>
-        </aside>
+        </a>
+        
+        <a href="https://www.behance.net/gallery/239108565/BIBLIOTECA-Proyecto-Acadmico-%282025%29" target="_blank" class="project-card hover-trigger" data-category="arq">
+            <div class="image-container">
+                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/16b476239108565.692283c72e728.png" alt="Biblioteca">
+            </div>
+            <div class="project-info">
+                <h3 class="p-title">Biblioteca Costera</h3>
+                <span class="p-year">2025</span>
+            </div>
+        </a>
 
-        <main>
-            <header class="header-main fade-in-up">
-                <h1>Facundo<br>Luna</h1>
-                <p class="subtitle">Arquitecto en Formación | Visualización 3D & Desarrollo de Proyectos con Integración de IA</p>
-            </header>
+        <a href="https://www.behance.net/gallery/232347839/Plano-Municipal-Profesional-%282024%29" target="_blank" class="project-card hover-trigger" data-category="tech">
+            <div class="image-container">
+                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/c5eb49232347839.689ac25a63221.jpg" alt="Planos">
+            </div>
+            <div class="project-info">
+                <h3 class="p-title">Legajo Municipal</h3>
+                <span class="p-year">PRO</span>
+            </div>
+        </a>
 
-            <section class="fade-in-up">
-                <p class="profile-text">
-                    Estudiante de Arquitectura en la Universidad de Buenos Aires (UBA) con experiencia en desarrollo de planos técnicos y modelado 3D. Especial interés en la integración de tecnologías digitales (BIM, visualización arquitectónica e IA) para la creación de proyectos innovadores.
-                </p>
-            </section>
+        <a href="https://www.behance.net/gallery/232344061/INTERVENCION-URBANA-Proyecto-Acadmico-%282025%29" target="_blank" class="project-card hover-trigger" data-category="urb">
+            <div class="image-container">
+                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/02f691232344061.689aa6e222427.jpg" alt="Urbanismo">
+            </div>
+            <div class="project-info">
+                <h3 class="p-title">Intervención Urbana</h3>
+                <span class="p-year">2025</span>
+            </div>
+        </a>
 
-            <section class="fade-in-up">
-                <h2 class="section-title">Experiencia Profesional</h2>
-                
-                <div class="timeline-box">
-                    <span class="timeline-year">Enero 2024 - Abril 2024</span>
-                    <div class="timeline-title">Community Manager Creativo</div>
-                    <ul class="timeline-details">
-                        <li>Producción de contenido visual</li>
-                        <li>Gestión de redes sociales</li>
-                        <li>Estrategias digitales</li>
-                    </ul>
-                </div>
+        <a href="https://www.behance.net/gallery/232344485/CONJUNTO-HABITACIONAL-Proyecto-Acadmico-%282025%29" target="_blank" class="project-card hover-trigger" data-category="urb">
+            <div class="image-container">
+                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/8bc5a4232344485.689aaa72e3cef.jpg" alt="Vivienda Colectiva">
+            </div>
+            <div class="project-info">
+                <h3 class="p-title">Conjunto Habitacional</h3>
+                <span class="p-year">2025</span>
+            </div>
+        </a>
 
-                <div class="timeline-box">
-                    <span class="timeline-year">Julio 2023 - Diciembre 2023</span>
-                    <div class="timeline-title">Asistente de Arquitectura</div>
-                    <ul class="timeline-details">
-                        <li>Elaboración de planimetrías técnicas</li>
-                        <li>Desarrollo de documentación ejecutiva</li>
-                    </ul>
-                </div>
-            </section>
+        <a href="https://www.behance.net/gallery/232343769/IGLESIA-Proyecto-Acadmico-%282024%29" target="_blank" class="project-card hover-trigger" data-category="arq">
+            <div class="image-container">
+                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/bec6d3232343769.689aa47f6ed6d.jpg" alt="Iglesia">
+            </div>
+            <div class="project-info">
+                <h3 class="p-title">Espacio Sacro</h3>
+                <span class="p-year">2024</span>
+            </div>
+        </a>
 
-            <section class="fade-in-up">
-                <h2 class="section-title">Formación Académica</h2>
-                <div class="timeline-box">
-                    <span class="timeline-year">2022 - Presente</span>
-                    <div class="timeline-title">Arquitectura</div>
-                    <div class="timeline-subtitle">Universidad de Buenos Aires (UBA)</div>
-                </div>
-                <div class="timeline-box">
-                    <span class="timeline-year">2015 - 2021</span>
-                    <div class="timeline-title">Bachiller en Ciencias Sociales y Humanidades</div>
-                    <div class="timeline-subtitle">Instituto Evangélico de la Asamblea Cristiana (I.E.A.C)</div>
-                </div>
-            </section>
+    </main>
 
-            <section>
-                <h2 class="section-title fade-in-up">Proyectos Destacados</h2>
-                <div class="projects-grid">
+    <section class="ai-lab-section">
+        <div class="lab-container">
+            <div class="lab-header">
+                <div class="lab-brand">
                     
-                    <a href="https://www.behance.net/gallery/232345049/VIVIENDA-UNIFAMILIA-Proyecto-Acadmico-%282024%29" target="_blank" class="project-card fade-in-up">
-                        <div class="project-image-container">
-                            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/0f577a232345049.689aaf95bb01d.png" alt="Vivienda Unifamiliar" loading="lazy">
-                        </div>
-                        <div class="project-info">
-                            <div class="p-title">Vivienda Unifamiliar</div>
-                            <span class="p-year">Académico 2024</span>
-                            <ul class="p-desc">
-                                <li>Diseño completo + documentación técnica</li>
-                                <li>Modelado 3D y renderizado fotorrealista</li>
-                                <li>Visualización interactiva 360°</li>
-                            </ul>
-                        </div>
-                    </a>
-
-                    <a href="https://www.behance.net/gallery/232343769/IGLESIA-Proyecto-Acadmico-%282024%29" target="_blank" class="project-card fade-in-up">
-                        <div class="project-image-container">
-                            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/bec6d3232343769.689aa47f6ed6d.jpg" alt="Iglesia" loading="lazy">
-                        </div>
-                        <div class="project-info">
-                            <div class="p-title">Iglesia</div>
-                            <span class="p-year">Académico 2024</span>
-                            <ul class="p-desc">
-                                <li>Diseño completo</li>
-                                <li>Modelado 3D y renderizado fotorrealista</li>
-                                <li>Visualización Multimedia</li>
-                            </ul>
-                        </div>
-                    </a>
-
-                    <a href="https://www.behance.net/gallery/232347839/Plano-Municipal-Profesional-%282024%29" target="_blank" class="project-card fade-in-up">
-                        <div class="project-image-container">
-                            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/c5eb49232347839.689ac25a63221.jpg" alt="Planos" loading="lazy">
-                        </div>
-                        <div class="project-info">
-                            <div class="p-title">Planos Municipales</div>
-                            <span class="p-year">Profesional 2024</span>
-                            <ul class="p-desc">
-                                <li>Planimetrías técnicas</li>
-                                <li>Documentación normativa</li>
-                                <li>Coordinación interdisciplinaria</li>
-                            </ul>
-                        </div>
-                    </a>
-
-                    <a href="https://www.behance.net/gallery/232344061/INTERVENCION-URBANA-Proyecto-Acadmico-%282025%29" target="_blank" class="project-card fade-in-up">
-                        <div class="project-image-container">
-                            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/02f691232344061.689aa6e222427.jpg" alt="Urbano" loading="lazy">
-                        </div>
-                        <div class="project-info">
-                            <div class="p-title">Intervención Urbana</div>
-                            <span class="p-year">Académico 2025</span>
-                            <ul class="p-desc">
-                                <li>Diseño urbano y paisajístico</li>
-                                <li>Integración de espacios públicos</li>
-                                <li>Soluciones de movilidad</li>
-                            </ul>
-                        </div>
-                    </a>
-
-                    <a href="https://www.behance.net/gallery/232344485/CONJUNTO-HABITACIONAL-Proyecto-Acadmico-%282025%29" target="_blank" class="project-card fade-in-up">
-                        <div class="project-image-container">
-                            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/8bc5a4232344485.689aaa72e3cef.jpg" alt="Conjunto Habitacional" loading="lazy">
-                        </div>
-                        <div class="project-info">
-                            <div class="p-title">Conjunto Habitacional</div>
-                            <span class="p-year">Académico 2025</span>
-                            <ul class="p-desc">
-                                <li>Desarrollo urbano sostenible</li>
-                                <li>Análisis de entorno</li>
-                                <li>Propuesta espacial integrada</li>
-                            </ul>
-                        </div>
-                    </a>
-
-                    <a href="https://www.behance.net/gallery/239108565/BIBLIOTECA-Proyecto-Acadmico-%282025%29" target="_blank" class="project-card fade-in-up">
-                        <div class="project-image-container">
-                            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/16b476239108565.692283c72e728.png" alt="Biblioteca" loading="lazy">
-                        </div>
-                        <div class="project-info">
-                            <div class="p-title">Biblioteca Costera</div>
-                            <span class="p-year">Académico 2025</span>
-                            <ul class="p-desc">
-                                <li>Concepto arquitectónico integrado</li>
-                                <li>Estudios de prefactibilidad</li>
-                                <li>Solución paisajística</li>
-                            </ul>
-                        </div>
-                    </a>
-
+                    <img src="https://ui-avatars.com/api/?name=EF&background=008C95&color=fff&size=150" alt="Logo EFELE" class="lab-logo-img">
+                    
+                    <div class="lab-title">
+                        <h2>EFELE.ARQ</h2>
+                        <span>Laboratorio de investigación y diseño de IA</span>
+                    </div>
                 </div>
-            </section>
+                <a href="https://www.instagram.com/efele.arq" target="_blank" class="follow-btn hover-trigger">Seguir en Instagram</a>
+            </div>
 
-        </main>
-    </div>
+            <div class="lab-grid">
+                
+                <a href="https://www.instagram.com/p/DTvxyX9Dnkw/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="lab-item hover-trigger">
+                    <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=600&auto=format&fit=crop" alt="Fachada AI">
+                    <div class="lab-overlay">
+                        <span>Renderizado Exterior
+                    </div>
+                </a>
+
+                <a href="https://www.instagram.com/p/DTRQJp7jjR0/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="lab-item hover-trigger">
+                    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=600&auto=format&fit=crop" alt="Interior AI">
+                    <div class="lab-overlay">
+                        <span>Renderizado Interior
+                    </div>
+                </a>
+
+                <a href="https://www.instagram.com/p/DTBELW0DgCn/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="lab-item hover-trigger">
+                    <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=600&auto=format&fit=crop" alt="Proceso AI">
+                    <div class="lab-overlay">
+                        <span>Remodelacion con IA
+                    </div>
+                </a>
+                
+                <a href="https://www.instagram.com/p/DTltUDZDmQJ/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="lab-item hover-trigger">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=600&auto=format&fit=crop" alt="Detalle">
+                    <div class="lab-overlay">
+                        <span>Laminas Informativas
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <h2>FACUNDO LUNA.</h2>
+        <div class="credits">
+            <span>&copy; 2026</span>
+            <span>Diseñado en Buenos Aires</span>
+        </div>
+    </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            
-            // 1. ANIMACIÓN DE ENTRADA (SCROLL REVEAL)
-            const reveals = document.querySelectorAll('.fade-in-up, .timeline-box');
-            
-            const revealObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        revealObserver.unobserve(entry.target); // Dejar de observar una vez animado
-                    }
-                });
-            }, {
-                threshold: 0.15,
-                rootMargin: "0px 0px -50px 0px"
+        // LÓGICA DE CURSOR (Solo activo si no es táctil - PC)
+        const cursor = document.getElementById('cursor');
+        const ring = document.getElementById('cursor-ring');
+        
+        // Detectar si el dispositivo tiene mouse fino (PC)
+        const isFinePointer = window.matchMedia('(pointer: fine)').matches;
+
+        if (isFinePointer) {
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                setTimeout(() => {
+                    ring.style.left = e.clientX + 'px';
+                    ring.style.top = e.clientY + 'px';
+                }, 70);
             });
 
-            reveals.forEach(el => revealObserver.observe(el));
+            document.querySelectorAll('.hover-trigger').forEach(link => {
+                link.addEventListener('mouseenter', () => document.body.classList.add('hover-active'));
+                link.addEventListener('mouseleave', () => document.body.classList.remove('hover-active'));
+            });
+        }
 
-            // 2. ANIMACIÓN DE BARRAS DE HABILIDAD (SKILLS)
-            const skillBars = document.querySelectorAll('.skill-bar-fill');
-            
-            const skillObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const bar = entry.target;
-                        const width = bar.getAttribute('data-width'); // Leer el valor del atributo personalizado
-                        bar.style.width = width; // Aplicar el ancho para activar la transición CSS
-                        skillObserver.unobserve(bar);
-                    }
-                });
-            }, { threshold: 0.5 });
+        // SCROLL REVEAL SIMPLE
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.project-card').forEach(c => observer.observe(c));
 
-            skillBars.forEach(bar => skillObserver.observe(bar));
-        });
+        // FILTROS
+        function filterProjects(cat) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            document.querySelectorAll('.project-card').forEach(c => {
+                c.style.display = (cat === 'all' || c.dataset.category === cat) ? 'block' : 'none';
+                setTimeout(() => c.style.opacity = (c.style.display === 'block') ? '1' : '0', 50);
+            });
+        }
     </script>
 </body>
 </html>
