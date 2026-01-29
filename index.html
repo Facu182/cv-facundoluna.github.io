@@ -11,13 +11,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- VARIABLES --- */
+        /* --- 1. CONFIGURACIÓN VISUAL --- */
         :root {
             --bg-color: #ffffff;
             --text-main: #000000;
             --text-secondary: #666666;
-            --accent: #008C95;
-            --glass: rgba(255, 255, 255, 0.9);
+            --accent: #008C95; /* Tu Cian EFELE */
+            --glass: rgba(255, 255, 255, 0.92);
             --font-main: 'Inter', sans-serif;
             --font-heading: 'Montserrat', sans-serif;
             --font-tech: 'Space Grotesk', sans-serif;
@@ -26,18 +26,16 @@
 
         html { scroll-behavior: smooth; }
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        
         body { 
-            font-family: var(--font-main); 
-            background: var(--bg-color); 
-            color: var(--text-main); 
-            overflow-x: hidden; 
-            -webkit-font-smoothing: antialiased;
+            font-family: var(--font-main); background: var(--bg-color); color: var(--text-main); 
+            overflow-x: hidden; -webkit-font-smoothing: antialiased;
         }
         
         a { text-decoration: none; color: inherit; cursor: none; }
         img { max-width: 100%; display: block; height: auto; }
 
-        /* CURSOR (PC) */
+        /* --- 2. CURSOR PERSONALIZADO (Solo PC) --- */
         @media (pointer: fine) {
             #cursor, #cursor-ring {
                 position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; will-change: transform; 
@@ -48,16 +46,26 @@
             body.hover-active #cursor-ring { width: 60px; height: 60px; border-color: var(--accent); border-width: 2px; }
         }
 
-        /* HEADER & NAV */
+        /* --- 3. BARRA DE NAVEGACIÓN --- */
         nav { 
-            position: fixed; top: 0; width: 100%; padding: 25px 50px; 
+            position: fixed; top: 0; width: 100%; padding: 20px 50px; 
             display: flex; justify-content: space-between; align-items: center; 
-            background: var(--glass); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            background: var(--glass); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
             z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.05);
         }
         .logo { font-family: var(--font-tech); font-weight: 700; font-size: 1.2rem; letter-spacing: -1px; text-transform: uppercase; }
-        .social-links a { font-family: var(--font-tech); font-size: 0.85rem; margin-left: 20px; font-weight: 600; text-transform: uppercase; }
+        .social-links { display: flex; align-items: center; }
+        .social-links a { font-family: var(--font-tech); font-size: 0.85rem; margin-left: 25px; font-weight: 600; text-transform: uppercase; transition: color 0.3s; }
+        .social-links a:hover { color: var(--accent); }
 
+        /* Botón CV */
+        .cv-button {
+            border: 1px solid var(--text-main); padding: 8px 20px; border-radius: 50px;
+            display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s ease;
+        }
+        .cv-button:hover { background: var(--text-main); color: white !important; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+        /* --- 4. HERO SECTION --- */
         header { padding: 180px 50px 40px; max-width: 1400px; margin: 0 auto; }
         h1 { 
             font-family: var(--font-heading); font-size: 7vw; font-weight: 900; 
@@ -65,38 +73,32 @@
             opacity: 0; animation: slideIn 0.8s ease 0.2s forwards;
         }
         .subtitle-group { border-left: 3px solid var(--accent); padding-left: 25px; margin-top: 30px; opacity: 0; animation: slideIn 0.8s ease 0.4s forwards; }
-        .bio { font-size: 1.1rem; color: var(--text-secondary); max-width: 500px; line-height: 1.6; }
+        .bio { font-size: 1.15rem; color: var(--text-secondary); max-width: 550px; line-height: 1.6; }
 
-        /* TECH STACK (CORREGIDO: GRASSHOPPER & RHINO) */
+        /* TECH STACK BAR */
         .stack-bar {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            opacity: 0; animation: slideIn 0.8s ease 0.6s forwards;
+            margin-top: 45px; padding-top: 20px; border-top: 1px solid #eee;
+            display: flex; align-items: center; gap: 20px; flex-wrap: wrap; opacity: 0; animation: slideIn 0.8s ease 0.6s forwards;
         }
-        .stack-label { font-family: var(--font-tech); font-size: 0.75rem; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: 1px; }
-        .stack-icons { display: flex; gap: 20px; flex-wrap: wrap; }
-        .stack-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); }
-        .stack-item i { color: var(--accent); }
+        .stack-label { font-family: var(--font-tech); font-size: 0.75rem; font-weight: 700; color: #bbb; text-transform: uppercase; letter-spacing: 1px; }
+        .stack-icons { display: flex; gap: 25px; flex-wrap: wrap; }
+        .stack-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); transition: 0.3s; }
+        .stack-item i { color: var(--accent); font-size: 1rem; }
+        .stack-item:hover { color: var(--text-main); transform: translateY(-2px); }
 
         /* FILTROS */
         .filters { display: flex; gap: 10px; margin-top: 40px; flex-wrap: wrap; }
         .filter-btn { 
             border: 1px solid #e0e0e0; background: transparent; 
             font-family: var(--font-tech); font-size: 0.8rem; text-transform: uppercase; 
-            padding: 8px 20px; font-weight: 700; transition: color 0.2s, background 0.2s; color: #888; 
-            cursor: none;
+            padding: 8px 20px; font-weight: 700; transition: all 0.3s; color: #888; cursor: none;
         }
         .filter-btn.active, .filter-btn:hover { background: var(--text-main); color: white; border-color: var(--text-main); }
 
-        /* PORTFOLIO GRID */
+        /* --- 5. GRID DE PROYECTOS --- */
         .portfolio-grid { 
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); 
-            gap: 30px; max-width: 1400px; margin: 0 auto; padding: 0 50px 100px; 
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); 
+            gap: 40px; max-width: 1400px; margin: 0 auto; padding: 0 50px 100px; 
         }
         .project-card { 
             opacity: 0; transform: translateY(30px); transition: opacity 0.5s ease, transform 0.5s ease; 
@@ -107,85 +109,100 @@
         .image-container { position: relative; overflow: hidden; aspect-ratio: 16/10; background: #f4f4f4; }
         .image-container img { 
             width: 100%; height: 100%; object-fit: cover; 
-            transition: transform 0.5s ease, filter 0.5s ease; 
+            transition: transform 0.6s ease, filter 0.6s ease; 
             filter: grayscale(100%); will-change: transform, filter;
         }
         .project-card:hover img { transform: scale(1.03); filter: grayscale(0%); }
         
-        .project-info { margin-top: 15px; display: flex; justify-content: space-between; border-bottom: 2px solid transparent; padding-bottom: 10px; }
+        .project-info { margin-top: 15px; display: flex; justify-content: space-between; border-bottom: 2px solid transparent; padding-bottom: 10px; transition: border-color 0.3s;}
         .project-card:hover .project-info { border-bottom-color: var(--accent); }
         .p-title { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 800; line-height: 1; text-transform: uppercase; }
         .p-year { font-family: var(--font-tech); font-weight: 700; color: var(--accent); }
 
-        /* SECCIÓN SERVICIOS (CORREGIDO: PARAMETRICO) */
-        .tech-process-section {
-            background: var(--light-gray);
-            padding: 80px 50px;
+        /* --- 6. SECCIÓN SLIDER (ANTES/DESPUÉS) --- */
+        .comparison-section { padding: 100px 50px; background: #fff; }
+        .comp-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.5fr; gap: 50px; align-items: center; }
+        .comp-text h2 { font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 20px; line-height: 1; }
+        .comp-label { font-family: var(--font-tech); font-weight: 700; color: var(--accent); font-size: 0.8rem; letter-spacing: 1px; margin-top: 20px; display: block; }
+        
+        .img-comp-container { position: relative; height: 500px; overflow: hidden; cursor: col-resize; border: 1px solid #eee; }
+        .img-comp-img { position: absolute; width: auto; height: auto; overflow: hidden; }
+        .img-comp-img img { display: block; vertical-align: middle; height: 500px; object-fit: cover; width: 100%; max-width: none; }
+        
+        .img-comp-slider {
+            position: absolute; z-index: 9; cursor: col-resize;
+            width: 40px; height: 40px; background-color: var(--accent);
+            top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            border: 2px solid white; box-shadow: 0 0 15px rgba(0,0,0,0.3);
         }
+        .img-comp-slider::before { content: '↔'; color: white; font-weight: bold; }
+
+        /* --- 7. SECCIÓN DE SERVICIOS --- */
+        .tech-process-section { background: var(--light-gray); padding: 80px 50px; }
         .process-container {
             max-width: 1400px; margin: 0 auto;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;
+            display: grid; grid-template-columns: 1fr; /* Centrado para limpieza */
+            gap: 40px; align-items: center; text-align: center;
         }
-        .process-text h2 { font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 20px; line-height: 1; }
-        .process-text p { color: var(--text-secondary); margin-bottom: 30px; line-height: 1.6; }
-        .services-list { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .service-item { display: flex; align-items: center; gap: 10px; font-weight: 600; font-family: var(--font-tech); }
-        .service-item::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+        .process-text h2 { font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 20px; line-height: 1; letter-spacing: -1px; }
+        .process-text p { color: var(--text-secondary); margin-bottom: 30px; line-height: 1.6; max-width: 600px; margin-left: auto; margin-right: auto; }
         
-        .process-image {
-            height: 400px; background: #ddd; position: relative; overflow: hidden;
+        .services-list { 
+            display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 30px;
         }
-        .process-image img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.5s; }
-        .process-image:hover img { filter: grayscale(0%); }
-        .process-badge {
-            position: absolute; top: 20px; right: 20px; background: white; padding: 10px 20px;
-            font-family: var(--font-tech); font-weight: 700; font-size: 0.8rem;
+        .service-item { 
+            display: flex; align-items: center; gap: 10px; 
+            font-weight: 600; font-family: var(--font-tech); font-size: 0.9rem;
+            background: white; padding: 10px 20px; border-radius: 50px; border: 1px solid #eee;
         }
+        .service-item::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
 
-        /* AI LAB SECTION */
-        .ai-lab-section { background: #050505; color: white; padding: 80px 50px; }
+        /* --- 8. AI LAB (@efele.arq) --- */
+        .ai-lab-section { background: #050505; color: white; padding: 100px 50px; }
         .lab-container { max-width: 1400px; margin: 0 auto; }
         .lab-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px; border-bottom: 1px solid #333; padding-bottom: 30px; }
         .lab-brand { display: flex; align-items: center; gap: 20px; }
         .lab-logo-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); padding: 3px; background: black; }
         .lab-title h2 { font-family: var(--font-tech); font-size: 2rem; margin: 0; }
         .lab-title span { color: var(--accent); font-size: 1rem; font-weight: 400; display: block; margin-top: 5px; }
-        .follow-btn { background: var(--accent); color: white; padding: 10px 25px; font-family: var(--font-tech); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; border-radius: 4px; transition: 0.3s; }
+        
+        .follow-btn { background: var(--accent); color: white; padding: 10px 30px; font-family: var(--font-tech); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; border-radius: 4px; transition: 0.3s; }
         .follow-btn:hover { background: white; color: black; }
 
         .lab-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
-        .lab-item { position: relative; aspect-ratio: 1/1; overflow: hidden; background: #222; }
-        .lab-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; opacity: 0.8; filter: grayscale(100%); will-change: opacity, filter; }
-        .lab-overlay { position: absolute; inset: 0; background: rgba(0, 140, 149, 0.9); display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; transition: 0.3s; transform: translateY(20px); }
-        .lab-item:hover img { opacity: 1; filter: grayscale(0%); transform: scale(1.02); }
+        .lab-item { position: relative; aspect-ratio: 1/1; overflow: hidden; background: #1a1a1a; cursor: pointer; }
+        
+        /* FOTOS DE INSTAGRAM: B/N por defecto -> COLOR al hover */
+        .lab-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s ease; opacity: 0.8; filter: grayscale(100%); will-change: filter, opacity; }
+        .lab-overlay { position: absolute; inset: 0; background: rgba(0, 140, 149, 0.9); display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; transition: 0.4s ease; transform: translateY(10px); }
+        .lab-item:hover img { opacity: 1; filter: grayscale(0%); transform: scale(1.05); }
         .lab-item:hover .lab-overlay { opacity: 1; transform: translateY(0); }
+
+        /* --- 9. FOOTER --- */
+        footer { background: #000; color: #fff; padding: 80px 50px; border-top: 1px solid #222; }
+        footer h2 { font-family: var(--font-heading); font-size: 4rem; margin-bottom: 20px; line-height: 1; letter-spacing: -2px; }
+        .credits { font-size: 0.85rem; color: #666; margin-top: 60px; display: flex; justify-content: space-between; border-top: 1px solid #222; padding-top: 20px; }
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
-            * { cursor: auto !important; }
-            h1 { font-size: 13vw; }
-            nav { padding: 20px; }
+            * { cursor: auto !important; } h1 { font-size: 13vw; } nav { padding: 20px; }
             .social-links { display: none; }
+            .cv-button { position: absolute; top: 20px; right: 20px; font-size: 0.75rem; padding: 6px 15px; display: flex; } /* Botón CV visible en móvil */
             header { padding: 120px 20px 40px; }
-            .stack-bar { flex-direction: column; align-items: flex-start; gap: 10px; }
-            
-            .process-container { grid-template-columns: 1fr; }
-            .process-image { height: 250px; }
-            
+            .stack-bar { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .comp-container { grid-template-columns: 1fr; } 
+            .img-comp-container, .img-comp-img img { height: 300px; }
             .portfolio-grid { padding: 0 20px 60px; grid-template-columns: 1fr; gap: 40px; }
             .image-container img { filter: grayscale(0%); }
-            
-            .ai-lab-section { padding: 40px 20px; }
+            .ai-lab-section { padding: 50px 20px; }
             .lab-header { flex-direction: column; align-items: flex-start; gap: 20px; }
             .lab-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 15px; padding-bottom: 20px; }
             .lab-item { flex: 0 0 85%; scroll-snap-align: center; border-radius: 8px; }
-            .lab-overlay { opacity: 1; background: linear-gradient(to top, black, transparent); justify-content: flex-end; padding-bottom: 20px; align-items: flex-start; padding-left: 20px; }
+            .lab-overlay { opacity: 1; background: linear-gradient(to top, black, transparent); justify-content: flex-end; padding-bottom: 20px; align-items: flex-start; padding-left: 20px; transform: none; }
             .lab-item img { filter: grayscale(0%); }
         }
 
-        footer { background: #000; color: #fff; padding: 60px 50px; border-top: 1px solid #333; }
-        footer h2 { font-family: var(--font-heading); font-size: 3rem; margin-bottom: 10px; }
-        .credits { font-size: 0.8rem; color: #666; margin-top: 40px; display: flex; justify-content: space-between; }
         @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
     </style>
 </head>
@@ -199,6 +216,10 @@
         <div class="social-links">
             <a href="mailto:facundoluna182@gmail.com" class="hover-trigger">Contact</a>
             <a href="https://www.instagram.com/efele.arq" target="_blank" class="hover-trigger">Instagram</a>
+            
+            <a href="cv.pdf" download class="cv-button hover-trigger">
+                <i class="fa-solid fa-download"></i> CV
+            </a>
         </div>
     </nav>
 
@@ -213,7 +234,7 @@
             <div class="stack-bar">
                 <span class="stack-label">Stack:</span>
                 <div class="stack-icons">
-                    <div class="stack-item" style="font-weight: 700; color: var(--accent);"><i class="fa-solid fa-code"></i> Grasshopper</div>
+                    <div class="stack-item" style="color:var(--text-main); font-weight:700;"><i class="fa-solid fa-code"></i> Grasshopper</div>
                     <div class="stack-item"><i class="fa-solid fa-cube"></i> Rhino</div>
                     <div class="stack-item"><i class="fa-solid fa-shapes"></i> SketchUp</div>
                     <div class="stack-item"><i class="fa-solid fa-vr-cardboard"></i> Twinmotion</div>
@@ -235,7 +256,7 @@
         
         <a href="https://www.behance.net/gallery/232345049/VIVIENDA-UNIFAMILIA-Proyecto-Acadmico-%282024%29" target="_blank" class="project-card hover-trigger" data-category="arq">
             <div class="image-container">
-                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/0f577a232345049.689aaf95bb01d.png" alt="Vivienda" loading="lazy" decoding="async">
+                <img src="vivienda.jpg" alt="Vivienda" loading="lazy" decoding="async">
             </div>
             <div class="project-info">
                 <h3 class="p-title">Vivienda Unifamiliar</h3>
@@ -245,7 +266,7 @@
         
         <a href="https://www.behance.net/gallery/239108565/BIBLIOTECA-Proyecto-Acadmico-%282025%29" target="_blank" class="project-card hover-trigger" data-category="arq">
             <div class="image-container">
-                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/16b476239108565.692283c72e728.png" alt="Biblioteca" loading="lazy" decoding="async">
+                <img src="biblioteca.jpg" alt="Biblioteca" loading="lazy" decoding="async">
             </div>
             <div class="project-info">
                 <h3 class="p-title">Biblioteca Costera</h3>
@@ -255,7 +276,7 @@
 
         <a href="https://www.behance.net/gallery/232347839/Plano-Municipal-Profesional-%282024%29" target="_blank" class="project-card hover-trigger" data-category="tech">
             <div class="image-container">
-                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/c5eb49232347839.689ac25a63221.jpg" alt="Planos" loading="lazy" decoding="async">
+                <img src="planos.jpg" alt="Planos" loading="lazy" decoding="async">
             </div>
             <div class="project-info">
                 <h3 class="p-title">Legajo Municipal</h3>
@@ -265,7 +286,7 @@
 
         <a href="https://www.behance.net/gallery/232344061/INTERVENCION-URBANA-Proyecto-Acadmico-%282025%29" target="_blank" class="project-card hover-trigger" data-category="urb">
             <div class="image-container">
-                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/02f691232344061.689aa6e222427.jpg" alt="Urbanismo" loading="lazy" decoding="async">
+                <img src="urbano.jpg" alt="Urbanismo" loading="lazy" decoding="async">
             </div>
             <div class="project-info">
                 <h3 class="p-title">Intervención Urbana</h3>
@@ -275,7 +296,7 @@
 
         <a href="https://www.behance.net/gallery/232344485/CONJUNTO-HABITACIONAL-Proyecto-Acadmico-%282025%29" target="_blank" class="project-card hover-trigger" data-category="urb">
             <div class="image-container">
-                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/8bc5a4232344485.689aaa72e3cef.jpg" alt="Vivienda Colectiva" loading="lazy" decoding="async">
+                <img src="conjunto.jpg" alt="Vivienda Colectiva" loading="lazy" decoding="async">
             </div>
             <div class="project-info">
                 <h3 class="p-title">Conjunto Habitacional</h3>
@@ -285,7 +306,7 @@
 
         <a href="https://www.behance.net/gallery/232343769/IGLESIA-Proyecto-Acadmico-%282024%29" target="_blank" class="project-card hover-trigger" data-category="arq">
             <div class="image-container">
-                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/bec6d3232343769.689aa47f6ed6d.jpg" alt="Iglesia" loading="lazy" decoding="async">
+                <img src="iglesia.jpg" alt="Iglesia" loading="lazy" decoding="async">
             </div>
             <div class="project-info">
                 <h3 class="p-title">Espacio Sacro</h3>
@@ -295,27 +316,41 @@
 
     </main>
 
+    <section class="comparison-section">
+        <div class="comp-container">
+            <div class="comp-text">
+                <h2>MAGIA EN<br>POST-PRODUCCIÓN.</h2>
+                <p>El render base es solo el lienzo. Mi valor agregado está en la atmósfera, la iluminación y el detalle final logrado con IA y edición digital.</p>
+                <span class="comp-label">DESLIZA PARA COMPARAR ↔</span>
+            </div>
+
+            <div class="img-comp-container">
+                <div class="img-comp-img">
+                    <img src="despues.jpg" width="100%"> 
+                </div>
+                <div class="img-comp-img img-comp-overlay">
+                    <img src="antes.jpg" width="100%">
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="tech-process-section">
         <div class="process-container">
             <div class="process-text">
-                <h2>DISEÑO &<br>TECNOLOGÍA.</h2>
+                <h2>SERVICIOS &<br>CAPACIDADES.</h2>
                 <p>
-                    Especializado en la intersección entre documentación técnica precisa y exploración formal mediante herramientas paramétricas.
+                    Ofrezco soluciones integrales desde el concepto inicial hasta el legajo ejecutivo, adaptándome a las necesidades de estudios y clientes particulares.
                 </p>
                 
                 <div class="services-list">
-                    <div class="service-item">Documentación Ejecutiva (CAD)</div>
-                    <div class="service-item">Diseño Paramétrico (Grasshopper)</div>
-                    <div class="service-item">Visualización (Twinmotion)</div>
-                    <div class="service-item">Modelado 3D (Rhino/Skp)</div>
-                    <div class="service-item">Postproducción Digital</div>
+                    <div class="service-item">Diseño Paramétrico</div>
+                    <div class="service-item">Documentación Ejecutiva</div>
+                    <div class="service-item">Visualización 3D High-End</div>
+                    <div class="service-item">Modelado Complejo (Rhino)</div>
                     <div class="service-item">Gestión Municipal</div>
+                    <div class="service-item">AI Workflow</div>
                 </div>
-            </div>
-            
-            <div class="process-image">
-                <div class="process-badge">PARAMETRIC DESIGN</div>
-                <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=800&auto=format&fit=crop" alt="Detalle Constructivo" loading="lazy">
             </div>
         </div>
     </section>
@@ -335,22 +370,22 @@
 
             <div class="lab-grid">
                 <a href="https://www.instagram.com/efele.arq" target="_blank" class="lab-item hover-trigger">
-                    <img src="foto1.jpg" alt="Fachada AI" loading="lazy" decoding="async">
+                    <img src="insta1.jpg" alt="Fachada AI" loading="lazy" decoding="async">
                     <div class="lab-overlay"><span>Render Exterior</span></div>
                 </a>
 
                 <a href="https://www.instagram.com/efele.arq" target="_blank" class="lab-item hover-trigger">
-                    <img src="foto2.jpg" alt="Interior AI" loading="lazy" decoding="async">
+                    <img src="insta2.jpg" alt="Interior AI" loading="lazy" decoding="async">
                     <div class="lab-overlay"><span>Render Interior</span></div>
                 </a>
 
                 <a href="https://www.instagram.com/efele.arq" target="_blank" class="lab-item hover-trigger">
-                    <img src="foto3.jpg" alt="Proceso AI" loading="lazy" decoding="async">
+                    <img src="insta3.jpg" alt="Proceso AI" loading="lazy" decoding="async">
                     <div class="lab-overlay"><span>Remodelacion con IA</span></div>
                 </a>
                 
                 <a href="https://www.instagram.com/efele.arq" target="_blank" class="lab-item hover-trigger">
-                    <img src="foto4.jpg" alt="Detalle" loading="lazy" decoding="async">
+                    <img src="insta4.jpg" alt="Detalle" loading="lazy" decoding="async">
                     <div class="lab-overlay"><span>Laminas Informativas</span></div>
                 </a>
             </div>
@@ -363,22 +398,19 @@
     </footer>
 
     <script>
+        // 1. CURSOR
         const cursor = document.getElementById('cursor');
         const ring = document.getElementById('cursor-ring');
-        let mouseX = 0, mouseY = 0;
-        let ringX = 0, ringY = 0;
-        let isMoving = false;
+        let mouseX = 0, mouseY = 0; let ringX = 0, ringY = 0; let isMoving = false;
 
         if (window.matchMedia('(pointer: fine)').matches) {
             document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
+                mouseX = e.clientX; mouseY = e.clientY;
                 if (!isMoving) { isMoving = true; requestAnimationFrame(animateCursor); }
             });
             function animateCursor() {
                 cursor.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
-                ringX += (mouseX - ringX) * 0.15;
-                ringY += (mouseY - ringY) * 0.15;
+                ringX += (mouseX - ringX) * 0.15; ringY += (mouseY - ringY) * 0.15;
                 ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
                 requestAnimationFrame(animateCursor);
             }
@@ -387,16 +419,18 @@
                 l.addEventListener('mouseleave', () => document.body.classList.remove('hover-active'));
             });
         }
+
+        // 2. SCROLL REVEAL
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target); 
+                    entry.target.classList.add('visible'); observer.unobserve(entry.target); 
                 }
             });
         }, { threshold: 0.1 });
         document.querySelectorAll('.project-card').forEach(c => observer.observe(c));
 
+        // 3. FILTROS
         function filterProjects(t) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             event.target.classList.add('active');
@@ -410,6 +444,40 @@
                     setTimeout(() => c.style.display = 'none', 300);
                 }
             });
+        }
+
+        // 4. LOGICA DEL SLIDER (ANTES/DESPUES)
+        initComparisons();
+        function initComparisons() {
+            var x, i; x = document.getElementsByClassName("img-comp-overlay");
+            for (i = 0; i < x.length; i++) { compareImages(x[i]); }
+            function compareImages(img) {
+                var slider, clicked = 0, w, h;
+                w = img.offsetWidth; h = img.offsetHeight;
+                img.style.width = (w / 2) + "px";
+                slider = document.createElement("DIV");
+                slider.setAttribute("class", "img-comp-slider");
+                img.parentElement.insertBefore(slider, img);
+                slider.style.top = (h / 2) - (slider.offsetHeight / 2) + "px";
+                slider.style.left = (w / 2) - (slider.offsetWidth / 2) + "px";
+                slider.addEventListener("mousedown", slideReady);
+                window.addEventListener("mouseup", slideFinish);
+                slider.addEventListener("touchstart", slideReady);
+                window.addEventListener("touchend", slideFinish);
+                function slideReady(e) { e.preventDefault(); clicked = 1; window.addEventListener("mousemove", slideMove); window.addEventListener("touchmove", slideMove); }
+                function slideFinish() { clicked = 0; }
+                function slideMove(e) {
+                    var pos; if (clicked == 0) return false;
+                    pos = getCursorPos(e);
+                    if (pos < 0) pos = 0; if (pos > w) pos = w;
+                    slide(pos);
+                }
+                function getCursorPos(e) {
+                    var a, x = 0; e = (e.changedTouches) ? e.changedTouches[0] : e;
+                    a = img.getBoundingClientRect(); x = e.pageX - a.left; x = x - window.pageXOffset; return x;
+                }
+                function slide(x) { img.style.width = x + "px"; slider.style.left = img.offsetWidth - (slider.offsetWidth / 2) + "px"; }
+            }
         }
     </script>
 </body>
