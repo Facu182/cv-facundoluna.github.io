@@ -6,6 +6,7 @@
     <title>Facundo Luna | Arq & AI</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Montserrat:wght@400;700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -15,53 +16,104 @@
             --bg-color: #ffffff;
             --text-main: #000000;
             --text-secondary: #666666;
-            --accent: #008C95; /* Tu Cian EFELE */
-            --glass: rgba(255, 255, 255, 0.95);
+            --accent: #008C95;
+            --glass: rgba(255, 255, 255, 0.9); /* Un poco menos de opacidad para rendimiento */
             --font-main: 'Inter', sans-serif;
             --font-heading: 'Montserrat', sans-serif;
             --font-tech: 'Space Grotesk', sans-serif;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
-        body { font-family: var(--font-main); background: var(--bg-color); color: var(--text-main); overflow-x: hidden; }
-        a { text-decoration: none; color: inherit; cursor: none; }
-        img { max-width: 100%; display: block; }
+        /* RENDIMIENTO: Propiedad para suavizar scroll */
+        html { scroll-behavior: smooth; }
 
-        /* CURSOR (PC) */
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        body { 
+            font-family: var(--font-main); 
+            background: var(--bg-color); 
+            color: var(--text-main); 
+            overflow-x: hidden; 
+            -webkit-font-smoothing: antialiased; /* Textos más nítidos */
+        }
+        
+        a { text-decoration: none; color: inherit; cursor: none; }
+        img { max-width: 100%; display: block; height: auto; }
+
+        /* CURSOR (PC) - Optimizado */
         @media (pointer: fine) {
-            #cursor { position: fixed; width: 12px; height: 12px; background: var(--accent); border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); z-index: 9999; mix-blend-mode: multiply; }
-            #cursor-ring { position: fixed; width: 40px; height: 40px; border: 1px solid #ccc; border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); z-index: 9998; transition: 0.1s; }
-            .hover-active #cursor { transform: scale(0.5); }
-            .hover-active #cursor-ring { width: 60px; height: 60px; border-color: var(--accent); border-width: 2px; }
+            #cursor, #cursor-ring {
+                position: fixed; top: 0; left: 0;
+                pointer-events: none; z-index: 9999;
+                /* will-change avisa al navegador que esto se moverá mucho */
+                will-change: transform; 
+            }
+            #cursor {
+                width: 12px; height: 12px; background: var(--accent); border-radius: 50%;
+                mix-blend-mode: multiply; transform: translate(-50%, -50%);
+            }
+            #cursor-ring {
+                width: 40px; height: 40px; border: 1px solid #ccc; border-radius: 50%;
+                transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s, border-color 0.2s;
+            }
+            body.hover-active #cursor { transform: translate(-50%, -50%) scale(0.5); }
+            body.hover-active #cursor-ring { width: 60px; height: 60px; border-color: var(--accent); border-width: 2px; }
         }
 
         /* HEADER & NAV */
-        nav { position: fixed; top: 0; width: 100%; padding: 25px 50px; display: flex; justify-content: space-between; align-items: center; background: var(--glass); backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        nav { 
+            position: fixed; top: 0; width: 100%; padding: 25px 50px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            background: var(--glass); 
+            backdrop-filter: blur(8px); /* Reducido de 12px a 8px para ganar FPS */
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
         .logo { font-family: var(--font-tech); font-weight: 700; font-size: 1.2rem; letter-spacing: -1px; text-transform: uppercase; }
         .social-links a { font-family: var(--font-tech); font-size: 0.85rem; margin-left: 20px; font-weight: 600; text-transform: uppercase; }
 
         header { padding: 180px 50px 60px; max-width: 1400px; margin: 0 auto; }
-        h1 { font-family: var(--font-heading); font-size: 7vw; font-weight: 900; line-height: 0.9; margin-bottom: 30px; letter-spacing: -3px; opacity: 0; animation: slideIn 0.8s ease 0.2s forwards; }
+        h1 { 
+            font-family: var(--font-heading); font-size: 7vw; font-weight: 900; 
+            line-height: 0.9; margin-bottom: 30px; letter-spacing: -3px; 
+            opacity: 0; animation: slideIn 0.8s ease 0.2s forwards;
+        }
         .subtitle-group { border-left: 3px solid var(--accent); padding-left: 25px; margin-top: 30px; opacity: 0; animation: slideIn 0.8s ease 0.4s forwards; }
         .bio { font-size: 1.1rem; color: var(--text-secondary); max-width: 500px; line-height: 1.6; }
 
         .filters { display: flex; gap: 10px; margin-top: 40px; flex-wrap: wrap; }
-        .filter-btn { border: 1px solid #e0e0e0; background: transparent; font-family: var(--font-tech); font-size: 0.8rem; text-transform: uppercase; padding: 8px 20px; font-weight: 700; transition: 0.3s; color: #888; }
+        .filter-btn { 
+            border: 1px solid #e0e0e0; background: transparent; 
+            font-family: var(--font-tech); font-size: 0.8rem; text-transform: uppercase; 
+            padding: 8px 20px; font-weight: 700; transition: color 0.2s, background 0.2s; color: #888; 
+            cursor: none;
+        }
         .filter-btn.active, .filter-btn:hover { background: var(--text-main); color: white; border-color: var(--text-main); }
 
         /* PORTFOLIO GRID */
-        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 30px; max-width: 1400px; margin: 0 auto; padding: 0 50px 100px; }
-        .project-card { opacity: 0; transform: translateY(30px); transition: 0.5s; display: block; }
+        .portfolio-grid { 
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); 
+            gap: 30px; max-width: 1400px; margin: 0 auto; padding: 0 50px 100px; 
+        }
+        .project-card { 
+            opacity: 0; transform: translateY(30px); transition: opacity 0.5s ease, transform 0.5s ease; 
+            display: block; will-change: opacity, transform; /* Optimización */
+        }
         .project-card.visible { opacity: 1; transform: translateY(0); }
+        
         .image-container { position: relative; overflow: hidden; aspect-ratio: 16/10; background: #f4f4f4; }
-        .image-container img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; filter: grayscale(100%); }
-        .project-card:hover img { transform: scale(1.05); filter: grayscale(0%); }
+        .image-container img { 
+            width: 100%; height: 100%; object-fit: cover; 
+            transition: transform 0.5s ease, filter 0.5s ease; 
+            filter: grayscale(100%); 
+            will-change: transform, filter; /* Optimización */
+        }
+        .project-card:hover img { transform: scale(1.03); filter: grayscale(0%); } /* Zoom reducido para menos lag */
+        
         .project-info { margin-top: 15px; display: flex; justify-content: space-between; border-bottom: 2px solid transparent; padding-bottom: 10px; }
         .project-card:hover .project-info { border-bottom-color: var(--accent); }
         .p-title { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 800; line-height: 1; text-transform: uppercase; }
         .p-year { font-family: var(--font-tech); font-weight: 700; color: var(--accent); }
 
-        /* AI LAB SECTION - MODIFICADO PARA BLANCO Y NEGRO */
+        /* AI LAB SECTION */
         .ai-lab-section { background: #050505; color: white; padding: 80px 50px; }
         .lab-container { max-width: 1400px; margin: 0 auto; }
         .lab-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px; border-bottom: 1px solid #333; padding-bottom: 30px; }
@@ -75,21 +127,19 @@
         .lab-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
         .lab-item { position: relative; aspect-ratio: 1/1; overflow: hidden; background: #222; }
         
-        /* --- CAMBIO: FOTOS EN B/N --- */
         .lab-item img { 
-            width: 100%; height: 100%; object-fit: cover; transition: 0.5s; opacity: 0.8; 
-            filter: grayscale(100%); /* <--- ESTO PONE LA FOTO EN BLANCO Y NEGRO */
+            width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s ease; 
+            opacity: 0.8; filter: grayscale(100%); will-change: opacity, filter;
         }
         
-        .lab-overlay { position: absolute; inset: 0; background: rgba(0, 140, 149, 0.9); display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; transition: 0.3s; transform: translateY(20px); }
-        
-        /* --- CAMBIO: AL PASAR MOUSE VUELVE EL COLOR --- */
-        .lab-item:hover img { 
-            opacity: 1; transform: scale(1.1); 
-            filter: grayscale(0%); /* <--- ESTO DEVUELVE EL COLOR AL HOVER */
+        .lab-overlay { 
+            position: absolute; inset: 0; background: rgba(0, 140, 149, 0.9); 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            opacity: 0; transition: opacity 0.3s ease; 
         }
         
-        .lab-item:hover .lab-overlay { opacity: 1; transform: translateY(0); }
+        .lab-item:hover img { opacity: 1; filter: grayscale(0%); transform: scale(1.02); }
+        .lab-item:hover .lab-overlay { opacity: 1; }
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
@@ -105,9 +155,8 @@
             .lab-header { flex-direction: column; align-items: flex-start; gap: 20px; }
             .lab-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 15px; padding-bottom: 20px; }
             .lab-item { flex: 0 0 85%; scroll-snap-align: center; border-radius: 8px; }
-            .lab-overlay { opacity: 1; transform: none; background: linear-gradient(to top, black, transparent); justify-content: flex-end; padding-bottom: 20px; align-items: flex-start; padding-left: 20px; }
-            /* En celular dejamos las fotos B/N para mantener el estilo, o puedes borrar esta linea para que sean color */
-            .lab-item img { filter: grayscale(100%); } 
+            .lab-overlay { opacity: 1; background: linear-gradient(to top, black, transparent); justify-content: flex-end; padding-bottom: 20px; align-items: flex-start; padding-left: 20px; }
+            .lab-item img { filter: grayscale(0%); }
         }
 
         footer { background: #000; color: #fff; padding: 60px 50px; border-top: 1px solid #333; }
@@ -149,7 +198,7 @@
         
         <a href="https://www.behance.net/gallery/232345049/VIVIENDA-UNIFAMILIA-Proyecto-Acadmico-%282024%29" target="_blank" class="project-card hover-trigger" data-category="arq">
             <div class="image-container">
-                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/0f577a232345049.689aaf95bb01d.png" alt="Vivienda">
+                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/0f577a232345049.689aaf95bb01d.png" alt="Vivienda" loading="lazy" decoding="async">
             </div>
             <div class="project-info">
                 <h3 class="p-title">Vivienda Unifamiliar</h3>
@@ -159,7 +208,7 @@
         
         <a href="https://www.behance.net/gallery/239108565/BIBLIOTECA-Proyecto-Acadmico-%282025%29" target="_blank" class="project-card hover-trigger" data-category="arq">
             <div class="image-container">
-                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/16b476239108565.692283c72e728.png" alt="Biblioteca">
+                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/16b476239108565.692283c72e728.png" alt="Biblioteca" loading="lazy" decoding="async">
             </div>
             <div class="project-info">
                 <h3 class="p-title">Biblioteca Costera</h3>
@@ -169,7 +218,7 @@
 
         <a href="https://www.behance.net/gallery/232347839/Plano-Municipal-Profesional-%282024%29" target="_blank" class="project-card hover-trigger" data-category="tech">
             <div class="image-container">
-                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/c5eb49232347839.689ac25a63221.jpg" alt="Planos">
+                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/c5eb49232347839.689ac25a63221.jpg" alt="Planos" loading="lazy" decoding="async">
             </div>
             <div class="project-info">
                 <h3 class="p-title">Legajo Municipal</h3>
@@ -179,7 +228,7 @@
 
         <a href="https://www.behance.net/gallery/232344061/INTERVENCION-URBANA-Proyecto-Acadmico-%282025%29" target="_blank" class="project-card hover-trigger" data-category="urb">
             <div class="image-container">
-                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/02f691232344061.689aa6e222427.jpg" alt="Urbanismo">
+                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/02f691232344061.689aa6e222427.jpg" alt="Urbanismo" loading="lazy" decoding="async">
             </div>
             <div class="project-info">
                 <h3 class="p-title">Intervención Urbana</h3>
@@ -189,7 +238,7 @@
 
         <a href="https://www.behance.net/gallery/232344485/CONJUNTO-HABITACIONAL-Proyecto-Acadmico-%282025%29" target="_blank" class="project-card hover-trigger" data-category="urb">
             <div class="image-container">
-                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/8bc5a4232344485.689aaa72e3cef.jpg" alt="Vivienda Colectiva">
+                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/8bc5a4232344485.689aaa72e3cef.jpg" alt="Vivienda Colectiva" loading="lazy" decoding="async">
             </div>
             <div class="project-info">
                 <h3 class="p-title">Conjunto Habitacional</h3>
@@ -199,7 +248,7 @@
 
         <a href="https://www.behance.net/gallery/232343769/IGLESIA-Proyecto-Acadmico-%282024%29" target="_blank" class="project-card hover-trigger" data-category="arq">
             <div class="image-container">
-                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/bec6d3232343769.689aa47f6ed6d.jpg" alt="Iglesia">
+                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/bec6d3232343769.689aa47f6ed6d.jpg" alt="Iglesia" loading="lazy" decoding="async">
             </div>
             <div class="project-info">
                 <h3 class="p-title">Espacio Sacro</h3>
@@ -214,7 +263,7 @@
             <div class="lab-header">
                 <div class="lab-brand">
                     
-                    <img src="logo.jpg" alt="Logo EFELE" class="lab-logo-img">
+                    <img src="logo.jpg" alt="Logo EFELE" class="lab-logo-img" loading="lazy">
                     
                     <div class="lab-title">
                         <h2>EFELE.ARQ</h2>
@@ -227,22 +276,22 @@
             <div class="lab-grid">
                 
                 <a href="https://www.instagram.com/efele.arq" target="_blank" class="lab-item hover-trigger">
-                    <img src="foto1.jpg" alt="Fachada AI">
+                    <img src="foto1.jpg" alt="Fachada AI" loading="lazy" decoding="async">
                     <div class="lab-overlay"><span>Render Exterior</span></div>
                 </a>
 
                 <a href="https://www.instagram.com/efele.arq" target="_blank" class="lab-item hover-trigger">
-                    <img src="foto2.jpg" alt="Interior AI">
+                    <img src="foto2.jpg" alt="Interior AI" loading="lazy" decoding="async">
                     <div class="lab-overlay"><span>Render Interior</span></div>
                 </a>
 
                 <a href="https://www.instagram.com/efele.arq" target="_blank" class="lab-item hover-trigger">
-                    <img src="foto3.jpg" alt="Proceso AI">
+                    <img src="foto3.jpg" alt="Proceso AI" loading="lazy" decoding="async">
                     <div class="lab-overlay"><span>Remodelacion con IA</span></div>
                 </a>
                 
                 <a href="https://www.instagram.com/efele.arq" target="_blank" class="lab-item hover-trigger">
-                    <img src="foto4.jpg" alt="Detalle">
+                    <img src="foto4.jpg" alt="Detalle" loading="lazy" decoding="async">
                     <div class="lab-overlay"><span>Laminas Informativas</span></div>
                 </a>
 
@@ -256,25 +305,79 @@
     </footer>
 
     <script>
-        const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
-        if(window.matchMedia('(pointer: fine)').matches){
-            document.addEventListener('mousemove',e=>{
-                cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px';
-                setTimeout(()=>{ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px'},70)
+        // 1. CURSOR OPTIMIZADO CON requestAnimationFrame (CLAVE PARA RENDIMIENTO)
+        const cursor = document.getElementById('cursor');
+        const ring = document.getElementById('cursor-ring');
+        let mouseX = 0, mouseY = 0;
+        let ringX = 0, ringY = 0;
+        let isMoving = false;
+
+        if (window.matchMedia('(pointer: fine)').matches) {
+            
+            // Solo capturamos coordenadas, no movemos el DOM todavía
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                if (!isMoving) {
+                    isMoving = true;
+                    requestAnimationFrame(animateCursor);
+                }
             });
-            document.querySelectorAll('.hover-trigger').forEach(l=>{
-                l.addEventListener('mouseenter',()=>document.body.classList.add('hover-active'));
-                l.addEventListener('mouseleave',()=>document.body.classList.remove('hover-active'))
+
+            // Función de animación sincronizada con la pantalla (60fps)
+            function animateCursor() {
+                // Mover el punto central instantáneamente
+                cursor.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+                
+                // Mover el anillo con un "lerp" (interpolación lineal) para suavidad
+                ringX += (mouseX - ringX) * 0.15;
+                ringY += (mouseY - ringY) * 0.15;
+                ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+
+                requestAnimationFrame(animateCursor);
+            }
+
+            // Hover effects
+            document.querySelectorAll('.hover-trigger').forEach(l => {
+                l.addEventListener('mouseenter', () => document.body.classList.add('hover-active'));
+                l.addEventListener('mouseleave', () => document.body.classList.remove('hover-active'));
             });
         }
-        const observer=new IntersectionObserver(e=>{e.forEach(n=>{if(n.isIntersecting)n.target.classList.add('visible')})},{threshold:0.1});
-        document.querySelectorAll('.project-card').forEach(c=>observer.observe(c));
-        function filterProjects(t){
-            document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));event.target.classList.add('active');
-            document.querySelectorAll('.project-card').forEach(c=>{
-                c.style.display=(t==='all'||c.dataset.category===t)?'block':'none';
-                setTimeout(()=>c.style.opacity=(c.style.display==='block')?'1':'0',50)
-            })
+
+        // 2. SCROLL REVEAL OPTIMIZADO
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Una vez visible, dejamos de observar para ahorrar recursos
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, { threshold: 0.1 }); // Se activa al ver el 10% del elemento
+
+        document.querySelectorAll('.project-card').forEach(c => observer.observe(c));
+
+        // 3. FILTROS
+        function filterProjects(t) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const cards = document.querySelectorAll('.project-card');
+            
+            cards.forEach(c => {
+                if (t === 'all' || c.dataset.category === t) {
+                    c.style.display = 'block';
+                    // Pequeño delay para permitir que el display:block se renderice antes de la opacidad
+                    requestAnimationFrame(() => {
+                        c.style.opacity = '1';
+                        c.style.transform = 'translateY(0)';
+                    });
+                } else {
+                    c.style.opacity = '0';
+                    c.style.transform = 'translateY(20px)';
+                    setTimeout(() => c.style.display = 'none', 300); // Esperar a que termine la transición
+                }
+            });
         }
     </script>
 </body>
